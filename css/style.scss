@@ -1,0 +1,40 @@
+$primary: #282a36;
+$secondary: #44475a;
+$third: #6272a4;
+$purple: #bd93f9;
+$red: #ff5555;
+$cyan: #8be9fd;
+$yello: #f1fa8c;
+
+*,
+html {
+  background-color: $primary;
+}
+
+nav {
+  background-color: $secondary !important;
+
+  a:hover {
+    background-color: $third;
+    border-radius: 8px;
+  }
+
+  i {
+    font-size: larger;
+  }
+}
+
+#projects {
+  background-color: $primary;
+  color: white;
+  text-align: center;
+}
+
+.container-fluid {
+  background-color: $secondary;
+
+  a,
+  i {
+    background-color: $secondary;
+  }
+}
