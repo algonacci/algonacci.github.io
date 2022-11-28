@@ -38,3 +38,15 @@ nav {
     background-color: $secondary;
   }
 }
+
+.row {
+  .bg-drakula {
+    background-color: $primary !important;
+  }
+}
+
+#home {
+  img {
+    width: 75%;
+  }
+}
