@@ -14,7 +14,7 @@ html {
 nav {
   background-color: $secondary !important;
 
-  a:hover {
+  .navbar-brand:hover {
     background-color: $third;
     border-radius: 8px;
   }
