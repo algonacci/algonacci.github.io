@@ -30,6 +30,12 @@ nav {
   text-align: center;
 }
 
+#tech-stacks {
+  background-color: $primary;
+  color: white;
+  text-align: center;
+}
+
 .container-fluid {
   background-color: $secondary;
 
@@ -48,5 +54,11 @@ nav {
 #home {
   img {
     width: 75%;
+  }
+}
+
+#logo-tech-stacks {
+  a {
+    text-decoration: none;
   }
 }
