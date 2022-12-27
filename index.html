@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Algonacci</title>
     <link rel="icon" href="/img/Chara.png" />
+    <!-- CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -20,8 +21,9 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
     />
+    <link rel="stylesheet" href="assets/glightbox/css/glightbox.min.css" />
+    <link href="assets/boxicons/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
-
     <!-- SEO Metatags -->
     <meta name="robots" content="index, follow" />
     <meta name="author" content="Eric Julianto Braincore" />
@@ -64,7 +66,7 @@
       </div>
     </nav>
 
-    <main>
+    <main id="main">
       <section class="home py-1" id="home">
         <div class="container-lg">
           <div class="row min-vh-100 align-items-center align-content-center">
@@ -384,7 +386,7 @@
       </div>
 
       <div class="container">
-        <div class="row text-center">
+        <div class="row text-center" id="projects">
           <div class="col-lg-12">
             <div class="row">
               <div class="col-sm-4 mt-3">
@@ -518,6 +520,171 @@
           </div>
         </div>
       </div>
+
+      <div id="projects" class="p-1 px-3 mt-5 bg-dark">
+        <h1 class="bg-dark">Portfolio</h1>
+        <p class="bg-dark">
+          Some webinar and tech workshop that I've been attended as a speaker.
+        </p>
+      </div>
+
+      <section id="portfolio" class="portfolio bg-dark">
+        <div class="container bg-dark">
+          <div class="row portfolio-container bg-dark">
+            <div class="col-lg-4 col-md-6 portfolio-item bg-dark">
+              <div class="portfolio-img">
+                <img src="img/webinar1.png" class="img-fluid" alt="" />
+              </div>
+              <div class="portfolio-info">
+                <h4>Shifting Career To Data Science</h4>
+                <p>Webinar Coding.id</p>
+                <a
+                  href="https://coding.id/event/shifting-career-to-data-science-t8juk72h3d1n"
+                  target="_blank"
+                  class="details-link"
+                  title="More Details"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item bg-dark">
+              <div class="portfolio-img">
+                <img src="img/compfest.png" class="img-fluid" alt="" />
+              </div>
+              <div class="portfolio-info">
+                <h4>AI Innovation Challenge</h4>
+                <p>COMPFEST Fasilkom UI</p>
+                <a
+                  href="https://rri.co.id/purwokerto/daerah/80254/ikuti-ui-comfest-14-tim-braincore-raih-predikat-honorable-mention"
+                  target="_blank"
+                  class="details-link"
+                  title="More Details"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item bg-dark">
+              <div class="portfolio-img">
+                <img src="img/webinar_uin.png" class="img-fluid" alt="" />
+              </div>
+              <div class="portfolio-info">
+                <h4>Kickstart Career in Data Science</h4>
+                <p>HIMTI UIN Jakarta</p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item bg-dark">
+              <div class="portfolio-img">
+                <img
+                  src="img/webinar_jetson_nano.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="portfolio-info">
+                <h4>NVIDIA Jetson Nano for AI</h4>
+                <p>Indonesia AI Chit-chat</p>
+                <a
+                  href="https://www.youtube.com/watch?v=Ej4cG7-18vs"
+                  target="_blank"
+                  class="details-link"
+                  title="More Details"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item bg-dark">
+              <div class="portfolio-img">
+                <img
+                  src="img/webinar_bisaai_arduino.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="portfolio-info">
+                <h4>IoT Sederhana Menggunakan Arduino</h4>
+                <p>WEBINAR SERIES LOMBA THINC AI BISA AI</p>
+                <a
+                  href="https://www.tampil.id/event/detail/VFZSbk1VMVJQVDA9"
+                  target="_blank"
+                  class="details-link"
+                  title="More Details"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item bg-dark">
+              <div class="portfolio-img">
+                <img
+                  src="img/webinar_bisaai_figma.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="portfolio-info">
+                <h4>UI/UX Design with Figma and Other Tools</h4>
+                <p>WEBINAR SERIES LOMBA THINC AI BISA AI</p>
+                <a
+                  href="https://tampil.id/event/detail/VFZSbk1FNW5QVDA9"
+                  target="_blank"
+                  class="details-link"
+                  title="More Details"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item bg-dark">
+              <div class="portfolio-img">
+                <img
+                  src="img/webinar_bisaai_intel_galileo.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="portfolio-info">
+                <h4>Kenalan Yuk Sama Intel Galileo</h4>
+                <p>WEBINAR SERIES LOMBA THINC AI BISA AI</p>
+                <a
+                  href="https://tampil.id/event/detail/VFZSbk1FNTNQVDA9"
+                  target="_blank"
+                  class="details-link"
+                  title="More Details"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item bg-dark">
+              <div class="portfolio-img">
+                <img src="img/ai_creation.JPG" class="img-fluid" alt="" />
+              </div>
+              <div class="portfolio-info">
+                <h4>Finalist</h4>
+                <p>AI Creation</p>
+                <a
+                  href="img/ai_creation.JPG"
+                  data-gallery="portfolioGallery"
+                  class="portfolio-lightbox preview-link"
+                  title="Finalist AI Creation"
+                  ><i class="bx bx-plus"></i
+                ></a>
+                <a
+                  href="https://www.instagram.com/p/CY8_f14jvIH/"
+                  target="_blank"
+                  class="details-link"
+                  title="More Details"
+                  ><i class="bx bx-link"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section class="testimonials py-5" id="testimonials">
         <div class="container-lg">
@@ -797,6 +964,8 @@
       integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
       crossorigin="anonymous"
     ></script>
+    <script src="assets/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/isotope-layout/isotope.pkgd.min.js"></script>
     <script src="js/script.js"></script>
   </body>
 </html>
