@@ -13,12 +13,6 @@
       src="https://img.shields.io/badge/Twitter-1DA1F2?style=normal&logo=twitter&logoColor=white"
       style="vertical-align: center"
   /></a>
-  <a href="https://id.linkedin.com/in/ericjuliantooo" target="_blank"
-    ><img
-      alt=""
-      src="https://img.shields.io/badge/LinkedIn-0077B5?style=normal&logo=linkedin&logoColor=white"
-      style="vertical-align: center"
-  /></a>
 </p>
 
 ## Description
