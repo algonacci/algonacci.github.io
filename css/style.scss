@@ -136,3 +136,14 @@ nav {
 .portfolio .portfolio-item:hover .portfolio-info {
   opacity: 1;
 }
+
+#blogwalking {
+  #list-blogwalking {
+    a {
+      text-decoration: underline;
+    }
+    li {
+      line-height: 2em;
+    }
+  }
+}
