@@ -202,16 +202,49 @@ nav {
 .tag {
   display: inline-block;
   padding: 0.2em 0.5em;
-  border: 1px solid $secondary;
+  border: 1px solid $purple;
   border-radius: 5px;
   margin-right: 0.5em;
 }
 
-.read-more {
-  font-weight: bold;
-  color: #007bff !important;
+#comment {
+  background-color: #282a36 !important;
 }
 
-#comment {
-  background-color: $primary !important;
+.read-more {
+  font-weight: bold;
+  color: $purple !important;
+}
+
+$border-color: #ccc;
+$text-color: #555;
+$source-color: #999;
+
+blockquote {
+  font-size: 1.2rem;
+  color: $text-color;
+  border-left: 5px solid $border-color;
+  padding: 10px 20px;
+  margin: 20px 0;
+
+  p {
+    margin: 0;
+  }
+
+  cite {
+    display: block;
+    font-size: 1rem;
+    font-style: normal;
+    color: $source-color;
+    margin-top: 10px;
+    font-style: italic;
+  }
+}
+
+a {
+  color: $purple;
+}
+
+.bg-purple {
+  background-color: $purple;
 }
