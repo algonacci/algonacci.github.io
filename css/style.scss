@@ -248,3 +248,11 @@ a {
 .bg-purple {
   background-color: $purple;
 }
+
+.gist {
+  background-color: #f8f8f8 !important;
+  color: $red !important;
+  border-radius: 5px;
+  margin: 20px 0;
+  padding: 10px;
+}
