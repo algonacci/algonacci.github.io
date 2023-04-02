@@ -23,27 +23,39 @@
     <link rel="stylesheet" href="../css/style.css" />
 
     <!-- SEO Metatags -->
-    <meta name="robots" content="index, follow" />
-    <meta name="author" content="Eric Julianto Braincore" />
-    <meta name="content" content="Web Portfolio Eric Julianto" />
-    <meta name="description" content="Web Portfolio Eric Julianto" />
-    <meta property="og:type" content="Professional Services" />
-    <meta property="og:title" content="Web Portfolio Eric Julianto" />
-    <meta property="og:description" content="Web Portfolio Eric Julianto" />
+    <meta name="title" content="Image processing menggunakan OpenCV" />
+    <meta
+      name="description"
+      content="Kita akan belajar bagaimana caranya memproses sebuah gambar dengan menggunakan beberapa library"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://algonacci.github.io/" />
+    <meta property="og:title" content="Image processing menggunakan OpenCV" />
+    <meta
+      property="og:description"
+      content="Kita akan belajar bagaimana caranya memproses sebuah gambar dengan menggunakan beberapa library"
+    />
     <meta
       property="og:image"
-      content="https://raw.githubusercontent.com/algonacci/Free-CDN/main/Banner.png"
+      content="https://algonacci.github.io/img/blog/Image-processing-menggunakan-OpenCV.png"
     />
-    <meta property="og:url" content="algonacci.github.io" />
-    <meta name="twitter:title" content="Web Portfolio Eric Julianto" />
-    <meta name="twitter:description" content="Web Portfolio Eric Julianto" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://algonacci.github.io/" />
     <meta
-      name="twitter:image"
-      content="https://raw.githubusercontent.com/algonacci/Free-CDN/main/Banner.png"
+      property="twitter:title"
+      content="Image processing menggunakan OpenCV"
     />
     <meta
-      name="twitter:card"
-      content="https://raw.githubusercontent.com/algonacci/Free-CDN/main/Banner.png"
+      property="twitter:description"
+      content="Kita akan belajar bagaimana caranya memproses sebuah gambar dengan menggunakan beberapa library"
+    />
+    <meta
+      property="twitter:image"
+      content="https://algonacci.github.io/img/blog/Image-processing-menggunakan-OpenCV.png"
     />
   </head>
   <body>
@@ -86,36 +98,281 @@
                 </li>
               </ol>
               <h2 class="text-white">Image Processing Menggunakan OpenCV</h2>
-              <p class="text-muted">March 22, 2023</p>
+              <p class="text-muted">April 2, 2023</p>
               <p class="text-white text-justify">
-                Berikut ini adalah persembahan dari saya, sebuah tulisan yang
-                teramat bias. Ditulis karena banyaknya permintaan akan hal ini
-                dan juga untuk menjawab pertanyaan dari banyak orang dan juga
-                saya sendiri:
+                Kita akan belajar bagaimana caranya memproses sebuah gambar
+                dengan menggunakan beberapa library. Untuk memudahkan proses
+                belajar dan iterasi, silahkan gunakan Jupyter Notebook atau
+                Google Colab yaa. Kemudian import librarynya seperti yang ada di
+                bawah ini.
               </p>
-              <blockquote>
-                <cite>“Bagaimana sih caranya kamu belajar, ric?”</cite>
-              </blockquote>
-              <p class="text-white text-justify">Selamat membaca!</p>
+              <script src="https://gist.github.com/mistercirenk/42f233fd9f482b2d91f7017b31ee949f.js"></script>
               <br />
-              <h3 class="text-white">Purpose</h3>
+            </div>
+            <div class="row">
+              <img
+                src="https://file.notion.so/f/s/d7dbddfd-b1f2-49d2-b6e8-8b0593f2ef36/test.jpg?id=8b6a9beb-0698-4839-8ef1-570319c629d7&table=block&spaceId=17908227-801d-4f40-a2ba-cb59de56aa0c&expirationTimestamp=1680500991021&signature=eH0Q0fVarqFfr3qixfknuBjRgvd_SM3JH6BVvlAgCjI&downloadName=test.jpg"
+                alt="test.jpg"
+                class="d-flex mx-auto"
+                style="width: 400px !important; height: 300px"
+              />
+            </div>
+            <br />
+            <p class="text-white">
+              Jadi kita akan menggunakan gambar burung diatas ini sebagai contoh
+              untuk memahami bagaimana sebuah gambar diproses.
+            </p>
+            <br />
+            <p class="text-white">
+              Kita akan baca gambar diatas, pastikan sudah melakukan import
+              library yang sudah dibutuhkan dan simpan gambar diatas di
+              <i>root directory</i> kalian.
+            </p>
+            <script src="https://gist.github.com/mistercirenk/61e3449de6eff27b0efe0cfecd5268e8.js"></script>
+            <p class="text-white">
+              Ketika dijalankan, pasti teman-teman akan menemukan kumpulan
+              array. Betul, jadi gambar tadi akan dibaca berdasarkan channel
+              warnanya.
+            </p>
+            <div class="row">
+              <img
+                src="https://file.notion.so/f/s/3474f753-abee-4261-8a15-d0d52d094fd0/Untitled.png?id=ecd93c1b-6b66-496a-bcec-df68805cff02&table=block&spaceId=17908227-801d-4f40-a2ba-cb59de56aa0c&expirationTimestamp=1680501341922&signature=ZU1FM_9oItkZkYjtJIiFPOKcArtTaUrbShi5R9oTcCE&downloadName=Untitled.png"
+                alt="RGB Channel"
+              />
             </div>
             <p class="text-white">
-              Dari awal saya belajar, saya selalu punya tujuan. Kalo ditanya
-              enakan jadi BE/FE/Mobile/DS/dll saya biasanya akan balikin lagi ke
-              penanya. Tujuannya apa?
+              Semua gambar umumnya memiliki 3 channel warna yang kita sebut RGB.
+              Contohya pada gambar burung diatas artinya dia memiliki lebar
+              10px, tinggi 5px, dan kedalaman 3 channel warna.
             </p>
 
-            <div class="code-container">
-              <script src="https://gist.github.com/algonacci/429310cb34aeb720a03cee602acf20bd.js"></script>
-            </div>
+            <p class="text-white">Cara mencek-nya seperti ini:</p>
+            <script src="https://gist.github.com/mistercirenk/94c75e6167d6bfe18e645f9e755bd27b.js"></script>
+            <blockquote>
+              <cite>(1200, 1600, 3)</cite>
+            </blockquote>
 
             <p class="text-white">
-              Baik, sekarang kita sudah di penghujung tulisan ini. Mungkin
-              segitu dulu saja yang bisa saya bagikan tentang bagaimana sih
-              caranya saya belajar. Jika ada saran atau pertanyaan, silahkan DM
-              ke twitter saya yaa. Terima kasih sudah membaca!
+              3 channel warna ini bisa memiliki valuenya masing-masing. Skalanya
+              dari 0 - 255. Value inilah yang akhirnya akan menghasilkan warna
+              pada gambar.
             </p>
+
+            <br />
+
+            <p class="text-white">
+              Contohnya channel warna Red 240, Green 60, Blue 234 pasti akan
+              menghasilkan warna pink. Tidak percaya? Silahkan cek di
+              <a href="https://www.w3schools.com/colors/colors_rgb.asp"
+                >RGB Calculator</a
+              >
+            </p>
+
+            <br />
+
+            <p class="text-white">
+              Namun ada yang sedikit berbeda dengan OpenCV. Jika umumnya kita
+              sering mendengar istilah RGB, OpenCV justru membaca sebuah gambar
+              dengan channel BGR (Blue Green Red). Sehingga nanti warna dari
+              output gambarnya akan berbeda.
+            </p>
+
+            <p class="text-white">Baca gambar dengan OpenCV</p>
+            <script src="https://gist.github.com/mistercirenk/61e3449de6eff27b0efe0cfecd5268e8.js"></script>
+            <p class="text-white">Cek <i>shape</i> gambar</p>
+            <script src="https://gist.github.com/mistercirenk/94c75e6167d6bfe18e645f9e755bd27b.js"></script>
+            <p class="text-white">Tampilkan gambar yang dibaca dengan OpenCV</p>
+            <script src="https://gist.github.com/mistercirenk/9549012bf3c4e8fe08800c448339d727.js"></script>
+
+            <br />
+
+            <p class="text-white">
+              Tada!! Harusnya kamu sudah melihat gambar burung tadi dengan
+              channel warna yang dimulai dengan BGR.
+            </p>
+
+            <div class="row">
+              <img
+                src="https://file.notion.so/f/s/07d45dc6-8eaa-44f2-b968-ce92cd43f2ca/Untitled.png?id=a9018c47-7ade-449a-aa45-20a2e3b75b9a&table=block&spaceId=17908227-801d-4f40-a2ba-cb59de56aa0c&expirationTimestamp=1680501824475&signature=LzxSl9bps3XEjifxiubd152a79_IkllL8P9r9xrOmwI&downloadName=Untitled.png"
+                alt=""
+                style="width: 400px !important; height: 300px"
+                class="d-flex mx-auto"
+              />
+            </div>
+            <br />
+            <p class="text-white">
+              Jujur saya belum tahu alasan kenapa OpenCV membaca warna dari BGR
+              bukan RGB.
+            </p>
+
+            <p class="text-white">
+              Namun di beberapa kasus, kita kadang hanya membutuhkan 1 channel
+              warna saja, atau yang biasa kita sebut Grayscale image. Dalam
+              grayscale juga hanya memiliki value dari skala 0 - 255. Dimana
+              semakin ke tinggi, warnanya akan semakin cerah.
+            </p>
+
+            <p class="text-white">
+              Atau mudahnya, 0 adalah hitam dan 255 adalah putih.
+            </p>
+
+            <p class="text-white">
+              Tujuan dari konversi gambar ke grayscale ini adalah untuk membantu
+              komputer lebih mudah memahami gambar kita. Secara logika memahami
+              1 hal lebih mudah daripada memahami 3 hal sekaligus.
+            </p>
+
+            <div class="row">
+              <img
+                src="https://file.notion.so/f/s/9dc62010-cacb-4ad6-a04a-cf363c0120f1/Untitled.png?id=0e21ae9f-08b2-40c9-8b15-025b48031c02&table=block&spaceId=17908227-801d-4f40-a2ba-cb59de56aa0c&expirationTimestamp=1680501917925&signature=l69eICfVnjggvJ0k0BLQG4j3j0opmAWRNbEho70uzng&downloadName=Untitled.png"
+                alt=""
+                style="width: 300px !important; height: 300px"
+                class="d-flex mx-auto"
+              />
+            </div>
+            <br />
+            <p class="text-white">
+              Untuk melakukan convert ke grayscale kita akan menggunakan fungsi
+              convert color dari OpenCV, menggunakan image yang tadi sudah kita
+              proses yaa.
+            </p>
+
+            <p class="text-white">
+              Membaca gambar burung dan membaca shapenya. Terdeteksi gambar
+              masih memiliki 3 channel warna.
+            </p>
+
+            <script src="https://gist.github.com/mistercirenk/8c09ba63920c756918e007e336803881.js"></script>
+            <blockquote>
+              <cite>(1200, 1600, 3)</cite>
+            </blockquote>
+            <br />
+
+            <p class="text-white">Convert ke grayscale</p>
+            <script src="https://gist.github.com/mistercirenk/a88631e3c3235cedf7e855be761417f6.js"></script>
+            <blockquote>
+              <cite>(1200, 1600)</cite>
+            </blockquote>
+
+            <p class="text-white">Tampilkan gambarnya</p>
+            <script src="https://gist.github.com/mistercirenk/02bebfc800c771c3f49a95548e0edb90.js"></script>
+            <div class="row">
+              <img
+                src="https://file.notion.so/f/s/a34147d0-15c7-4b09-94f1-44ae56f523aa/Untitled.png?id=6a73ea60-5755-451c-b387-c3400635321c&table=block&spaceId=17908227-801d-4f40-a2ba-cb59de56aa0c&expirationTimestamp=1680502523523&signature=9DA0Qd1i5Go7JqzcNdXfzNr3PSVzUrkDrTsj2KlBdrA&downloadName=Untitled.png"
+                alt=""
+                style="width: 400px !important; height: 300px"
+                class="d-flex mx-auto"
+              />
+            </div>
+            <br />
+
+            <p class="text-white">
+              Viola! Kamu sudah berhasil mengubah sebuah gambar ke dalam bentuk
+              grayscale dengan menggunakan fungsi convert color di OpenCV.
+            </p>
+
+            <p class="text-white">
+              Mari kita lihat pixel per pixel dari pojok kiri gambar yang sudah
+              diconvert ke grayscale ini
+            </p>
+
+            <script src="https://gist.github.com/mistercirenk/a2cad0a26e66cc8c4871b2ee581c438e.js"></script>
+            <blockquote>
+              <cite
+                ># Hasil <br />
+                array([[63, 59, 54, 50, 52, 57, 58, 56, 55, 54], <br />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [60, 59, 56, 53, 53, 56, 56,
+                54, 57, 55], <br />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;[56, 58, 58, 55, 54, 54, 54,
+                53, 55, 52], <br />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;[52, 56, 58, 56, 53, 53, 55,
+                55, 54, 52], <br />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;[51, 55, 58, 55, 52, 54, 56,
+                58, 56, 55], <br />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;[51, 55, 58, 55, 53, 55, 57,
+                58, 56, 56], <br />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;[52, 56, 59, 58, 56, 56, 56,
+                54, 55, 54], <br />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;[52, 57, 60, 60, 59, 57, 54,
+                50, 58, 55], <br />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;[60, 62, 56, 64, 58, 65, 57,
+                58, 59, 60], <br />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;[58, 59, 57, 60, 58, 61, 57,
+                57, 60, 60]], dtype=uint8)</cite
+              >
+            </blockquote>
+
+            <p class="text-white">Tampilkan gambar dengan Matplotlib</p>
+            <script src="https://gist.github.com/mistercirenk/ee9c815c0e629b43f6865395928114f6.js"></script>
+            <div class="row">
+              <img
+                src="https://file.notion.so/f/s/4d6c3bab-75fc-4ca1-b4e1-16b805bdedf9/Untitled.png?id=b9c6cc15-0b1b-4a49-9566-af6698a09241&table=block&spaceId=17908227-801d-4f40-a2ba-cb59de56aa0c&expirationTimestamp=1680502887115&signature=sDI7-RQbOEzkd-Ij9SytGbnF-6Aup3ozyUdByL7rP6I&downloadName=Untitled.png"
+                alt=""
+                style="width: 300px !important; height: 300px"
+                class="d-flex mx-auto"
+              />
+            </div>
+            <p class="text-white">
+              Di atas ini adalah pojok kiri gambar atas dengan ukuran 10x10
+              pixel, dari ukuran gambar aslinya 1200x1600 pixel.
+            </p>
+
+            <p class="text-white">
+              Kemudian akan ada saatnya kita perlu meresize gambar kita, baik
+              itu menjadi lebih kecil atau lebih besar. Kita juga bisa
+              menggunakan fungsi resize yang ada di dalam OpenCV.
+            </p>
+            <script src="https://gist.github.com/mistercirenk/21c14ff909a01917921bcdbaa81a88ed.js"></script>
+            <blockquote>
+              <cite>(400, 500)</cite>
+            </blockquote>
+
+            <p class="text-white">Tampilkan gambar yang sudah dikecilkan</p>
+            <script src="https://gist.github.com/mistercirenk/02bebfc800c771c3f49a95548e0edb90.js"></script>
+            <div class="row">
+              <img
+                src="https://file.notion.so/f/s/34614274-cbac-479a-bf07-070fdcdf2fb8/Untitled.png?id=7eea30a6-4779-4399-ad65-78782b71b37a&table=block&spaceId=17908227-801d-4f40-a2ba-cb59de56aa0c&expirationTimestamp=1680503229655&signature=YIDEmIum3O7QB6VUUHzwA86WsATfGVMPJhP1uDmseJE&downloadName=Untitled.png"
+                alt=""
+                style="width: 500px !important; height: 400px"
+                class="d-flex mx-auto"
+              />
+            </div>
+
+            <br />
+
+            <p class="text-white">Kita juga bisa memperbesarnya</p>
+            <script src="https://gist.github.com/mistercirenk/bb1d7965c9cf1caed655228a798daa71.js"></script>
+            <blockquote>
+              <cite>(1600, 2000)</cite>
+            </blockquote>
+
+            <p class="text-white">Tampilkan gambarnya</p>
+            <script src="https://gist.github.com/mistercirenk/02bebfc800c771c3f49a95548e0edb90.js"></script>
+            <div class="row">
+              <img
+                src="https://file.notion.so/f/s/8c7c1c59-e830-43f2-8765-5aa820b2c068/Untitled.png?id=8e44a01b-82ad-490e-9856-92590f81c5b0&table=block&spaceId=17908227-801d-4f40-a2ba-cb59de56aa0c&expirationTimestamp=1680503380393&signature=NawMHExJBOkhDXS3qz4W7KtuT9_OAP3RdJJIQRMrhUI&downloadName=Untitled.png"
+                alt=""
+                style="width: 500px !important; height: 400px"
+                class="d-flex mx-auto"
+              />
+            </div>
+            <br />
+            <p class="text-white">
+              Tada!!! Kamu sudah berhasil mempelajari image processing sederhana
+              yang nantinya akan berguna ketika masuk mendalami tentang computer
+              vision. Namun masih banyak yang bisa kamu eksplor dalam library
+              OpenCV ini seperti <i>Contour, Edge detection, Median blur</i>,
+              dan masih banyak yang lainnya. Ada juga library lainnya yang bisa
+              kamu gunakan, seperti Glob, Pillow, dan Scikit-image.
+            </p>
+
+            <br />
+
+            <p class="text-white">
+              Sekian modul tentang image processing ini, sampai jumpa di tulisan
+              berikutnya! 😁
+            </p>
+            <!-- ABOUT -->
             <div class="about shadow-sm p-4 rounded my-5">
               <div
                 class="row mx-auto align-items-center d-flex flex-column flex-md-row text-center"
@@ -138,6 +395,9 @@
                   </p>
                 </div>
               </div>
+            </div>
+            <div class="row">
+              <a href="../blog.html" class="btn btn-secondary">Back to Blog</a>
             </div>
           </div>
         </div>
