@@ -292,3 +292,19 @@ a {
     color: $purple !important;
   }
 }
+
+.service-item {
+  a,
+  i {
+    text-decoration: none;
+    color: white;
+
+    &:hover {
+      color: $purple;
+    }
+  }
+}
+
+.btn-purple {
+  background-color: $third;
+}
