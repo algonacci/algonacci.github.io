@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cara Deploy Aplikasi Frontend Berbasis Vite ke Cloud Run</title>
+    <link rel="icon" href="/img/Chara.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <!-- SEO Metatags -->
+    <meta name="title" content="Cara Deploy Aplikasi Frontend Berbasis Vite ke Cloud Run" />
+    <meta name="description"
+        content="Kita akan belajar caranya mendeploy aplikasi frontend berbasis Vite ke Cloud Run" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://algonacci.github.io/" />
+    <meta property="og:title" content="Cara Deploy Aplikasi Frontend Berbasis Vite ke Cloud Run" />
+    <meta property="og:description"
+        content="Kita akan belajar caranya mendeploy aplikasi frontend berbasis Vite ke Cloud Run" />
+    <meta property="og:image"
+        content="https://algonacci.github.io/img/blog/Cara-deploy-vite-frontend-ke-cloud-run.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://algonacci.github.io/" />
+    <meta property="twitter:title" content="Cara Deploy Aplikasi Frontend Berbasis Vite ke Cloud Run" />
+    <meta property="twitter:description"
+        content="Kita akan belajar caranya mendeploy aplikasi frontend berbasis Vite ke Cloud Run" />
+    <meta property="twitter:image"
+        content="https://algonacci.github.io/img/blog/Cara-deploy-vite-frontend-ke-cloud-run.png" />
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white p-2" href="/">Algonacci</a>
+            <div class="d-flex">
+                <a href="https://github.com/algonacci" target="_blank"><i class="fab fa-github text-white px-2"></i></a>
+                <a href="https://twitter.com/algonacci" target="_blank"><i
+                        class="fab fa-twitter text-white px-2"></i></a>
+                <a href="../blog.html">
+                    <i class="fa-brands fa-blogger-b text-white px-2"></i>
+                </a>
+                <a href="../blogwalking.html">
+                    <i class="fa-solid fa-user-group text-white px-2"></i>
+                </a>
+                <a href="../guest-book.html">
+                    <i class="fa-solid fa-address-book text-white px-2"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="blog-post py-5" id="blog-post">
+        <div class="container-lg">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="section-title">
+                        <a class="btn btn-secondary bg-drakula" href="../blog.html">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </a>
+                        <ol class="breadcrumb ms-auto mt-3" id="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item"><a href="../blog.html">Blog</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Cara Deploy Aplikasi Frontend Berbasis Vite ke Cloud Run
+                            </li>
+                        </ol>
+                        <h2 class="text-white">Cara Deploy Aplikasi Frontend Berbasis Vite ke Cloud Run</h2>
+                        <p class="text-muted">April 11, 2024</p>
+                        <article>
+                            <p class="text-white">
+                                Kita akan belajar bagaimana caranya mendeploy aplikasi frontend berbasis Vite ke Cloud
+                                Run.
+                                Sebelumnya kamu harus menginisialisasi proyek Vite terlebih dahulu dan juga telah
+                                memiliki
+                                sebuah proyek di Google Cloud Platform serta memastikan Cloud Run API-nya sudah
+                                dinyalakan.
+                                <br>
+                                <br>
+                                Disini saya akan
+                                menggunakan framework Vue sebagai contoh, kamu bisa menggunakan framework lainnya
+                                seperti
+                                React, Preact, Svelte, Solid, dan lainnya yang disediakan templatenya oleh Vite.
+                                Kita hanya perlu mengetikkan perintah seperti berikut:
+                                <br>
+                                <br>
+                                <code>
+                                npm create vite@latest vue-vite-serverless -- --template vue
+                            </code>
+                                <br>
+                                <br>
+                                Kemudian ketika dibuka dengan text editor VS Code, kurang lebih struktur proyeknya akan
+                                seperti ini.
+                            </p>
+                            <br />
+                    </div>
+                    <div class="row">
+                        <img src="/img/blog/03/1.png" alt="Proyek Vue menggunakaan Vite" class="d-flex mx-auto"
+                            style="  border: 2px solid #bd93f9;" />
+                    </div>
+                    <br />
+                    <p class="text-white">
+                        Jika kamu ingin memastikan proyeknya bisa berjalan di mode development, kamu bisa lakukan
+                        perintah
+                        <code>npm run dev</code> di terminal. Nanti akan muncul halaman starter dari Vite + Vue di
+                        <code>http://localhost:5173</code> (port default Vite).
+                    </p>
+                    <br />
+                    <p class="text-white">
+                        Setelah itu, kita perlu menambahkan sebuah Dockerfile, untuk isi dari file tersebut bisa kalian
+                        coba copy dari snippet dibawah ini
+                    </p>
+                    <script src="https://gist.github.com/algonacci/cd0576ebbf68040d9a0c4bc9e1b22866.js"></script>
+                    <p class="text-white">
+                        Berikut ini adalah penjelasan dari isi Dockerfile di atas:
+                        <br>
+                        <br>
+                    </p>
+
+                    <strong class="text-white">
+                        Tahap 1: Membangun Aplikasi
+                    </strong>
+                    <br>
+                    <br>
+
+                    <ul class="text-white">
+                        <li>
+                            <strong>Tahap pertama</strong> adalah tentang membangun aplikasi Vite kita. Ini menggunakan
+                            image docker dasar dari
+                            node:lts-alpine yang merupakan versi Node.js ringan dan efisien berbasis Alpine Linux.
+                        </li>
+                        <li>
+                            <strong>WORKDIR /app</strong>: Menetapkan direktori kerja di dalam kontainer menjadi /app.
+                            Semua perintah
+                            selanjutnya akan dijalankan dari direktori ini.
+                        </li>
+                        <li>
+                            <strong>COPY package*.json ./</strong>: Menyalin file package.json dan package-lock.json
+                            (jika ada) ke dalam
+                            direktori kerja di dalam kontainer. Ini memungkinkan npm untuk menginstal semua dependensi
+                            yang
+                            dibutuhkan.
+                        </li>
+                        <li>
+                            <strong>RUN npm install</strong>: Menginstal semua dependensi yang terdaftar di
+                            package.json, termasuk
+                            devDependencies karena diperlukan untuk proses <code>vite build</code>.
+                        </li>
+                        <li>
+                            <strong>COPY . .</strong>: Menyalin seluruh source code aplikasi kita ke dalam kontainer.
+                        </li>
+                        <li>
+                            <strong>RUN npm run build</strong>: Menjalankan perintah build yang didefinisikan di
+                            package.json, yang
+                            biasanya memanggil <code>vite build</code> untuk mengompilasi aplikasi Vite kita menjadi
+                            versi produksi.
+                        </li>
+                    </ul>
+
+                    <strong class="text-white">
+                        Tahap 2: Menyajikan Aplikasi
+                    </strong>
+                    <br>
+                    <br>
+                    <p class="text-white">
+                        Setelah aplikasi dibangun, tahap kedua bertanggung jawab untuk menyajikannya menggunakan server
+                        statis.
+                        Tahap ini juga dimulai dengan FROM node:lts-alpine, menggunakan gambar dasar yang sama untuk
+                        konsistensi dan efisiensi.
+                    </p>
+
+                    <ul class="text-white">
+                        <li>
+                            <strong>RUN npm install -g serve</strong>: Menginstal serve, sebuah paket npm yang
+                            menyediakan server statis
+                            sederhana, secara global dalam kontainer. Ini digunakan untuk menyajikan aplikasi Vite yang
+                            telah
+                            dibangun.
+                        </li>
+                        <li>
+                            <strong>COPY --from=build-stage /app/dist /app/dist</strong>: Menyalin direktori dist yang
+                            berisi file aplikasi
+                            yang dibangun dari tahap sebelumnya ke dalam direktori dist di tahap ini. Ini adalah
+                            direktori
+                            yang akan disajikan oleh server statis.
+                        </li>
+                        <li>
+                            <strong>EXPOSE 8080</strong>: Menandai bahwa kontainer akan mendengarkan pada port 8080. Ini
+                            penting untuk
+                            komunikasi antara kontainer Docker dan dunia luar. Secara default, Google Cloud Run akan
+                            listen ke port 8080.
+                        </li>
+                        <li>
+                            <strong>CMD ["serve", "-s", "dist", "-l", "8080"]</strong>: Menentukan perintah yang akan
+                            dijalankan saat
+                            kontainer dimulai. Di sini, itu menjalankan serve untuk menyajikan aplikasi dari direktori
+                            dist
+                            pada port 8080.
+                        </li>
+                    </ul>
+
+
+
+                    </p>
+
+                    <br />
+
+                    <p class="text-white">
+                        Jika kamu ingin mencoba membuild aplikasinya terlebih dulu di local development, kamu bisa
+                        jalankan 2 perintah ini:
+                        <br>
+                        <br>
+                        <code>
+                            docker build -t vue-vite-serverless .
+                        </code>
+                        <br>
+                        <code>
+                            docker run -p 8080:8080 vue-vite-serverless
+                        </code>
+                        <br>
+                        <br>
+                        Kemudian ketika sudah running, kamu bisa mencobanya di <code>http://localhost:8080</code>. Jika
+                        tidak ada error, kamu akan mendapatkan hasil yang sama seperti ketika melakukan
+                        <code>npm run dev</code> tadi yang jalan di port 5173.
+                    </p>
+
+                    <p class="text-white">Setelah itu, mari push proyek Vite kita ke GitHub, karena sebentar lagi kita
+                        akan mendeploynya ke Cloud Run.</p>
+
+                    <div class="row">
+                        <img src="/img/blog/03/2.png" alt="Proyek Vue menggunakaan Vite di GitHub"
+                            class="d-flex mx-auto" />
+                    </div>
+
+                    <p class="text-white mt-3">
+                        Ini adalah contoh repository proyek Vite yang sudah inisialisasi dan push ke Github, bisa
+                        diakses <a href="https://github.com/algonacci/Vue-Vite-Serverless" target="_blank">disini</a>.
+                    </p>
+
+                    <br />
+
+                    <p class="text-white">
+                        Selanjutnya, kita buka halaman Cloud Run di Google Cloud Platform, bisa diakses di
+                        <a href="https://console.cloud.google.com/run"
+                            target="_blank">https://console.cloud.google.com/run</a>. Jika kamu baru pertama kali
+                        menggunakan GCP khususnya Cloud Run, ada kemungkinan akan diminta untuk menyalakan Cloud Run API
+                        terlebih dahulu. Jika sudah dinyalakan, setelah itu kita buat Cloud Run
+                        Service baru dengan mengklik tombol Create Service.
+                    </p>
+
+                    <div class="row">
+                        <img src="/img/blog/03/3.png" alt="Proyek Vue menggunakaan Vite di GitHub"
+                            class="d-flex mx-auto" />
+                    </div>
+
+                    <p class="text-white mt-3">
+                        Kemudian kita pilih <i>Continuously deploy from a repository</i>, dan klik lagi <i>Set up with
+                            Cloud Build</i>.
+                    </p>
+
+                    <div class="row">
+                        <img src="/img/blog/03/4.png" alt="Proyek Vue menggunakaan Vite di GitHub"
+                            class="d-flex mx-auto" style="width: 500px;" />
+                    </div>
+
+                    <p class="text-white mt-3">
+                        Kemudian kita perlu memilih repository GitHub yang sudah kita push proyek Vite-nya tadi. Kalau
+                        kamu baru pertama kali menggunakan Cloud Run, ada kemungkinan akan diminta untuk connect ke
+                        GitHub terlebih dahulu. Kalau sudah sama seperti di gambar di bawah ini, klik <i>Next</i> saja.
+                    </p>
+
+                    <div class="row">
+                        <img src="/img/blog/03/5.png" alt="Proyek Vue menggunakaan Vite di GitHub"
+                            class="d-flex mx-auto" style="width: 500px;" />
+                    </div>
+
+                    <p class="text-white mt-3">
+                        Selanjutnya di <i>Build Configuration</i>, pastikan kita memilih branch <code>main</code>, saja
+                        untuk dilakukan proses deployment. Untuk <i>Built Type</i>-nya bisa pilih Dockerfile, jadi nanti
+                        akan otomatis menyesuaikan dengan Dockerfile yang sudah kita buat di direktori proyek Vite kita
+                        tadi. Jika sudah benar semua seperti di gambar, klik <i>Save</i>.
+                    </p>
+
+                    <div class="row">
+                        <img src="/img/blog/03/6.png" alt="Proyek Vue menggunakaan Vite di GitHub"
+                            class="d-flex mx-auto" style="width: 500px;" />
+                    </div>
+
+                    <p class="text-white mt-3">
+                        Setelah itu, kita bisa mengatur nama service yang ingin kita gunakan. Ini nanti pengaruhnya ke
+                        domain yang akan kita dapatkan, kalau mau dibiarkan mengikuti nama repository, juga tidak
+                        masalah. Kemudian untuk regionnya mari kita setting ke <code>asia-southeast1 (Singapore)</code>,
+                        fungsinya jika kita nantinya mau melakukan custom domain di Cloud Run ini.
+                    </p>
+
+                    <div class="row">
+                        <img src="/img/blog/03/7.png" alt="Proyek Vue menggunakaan Vite di GitHub"
+                            class="d-flex mx-auto" style="width: 500px;" />
+                    </div>
+
+                    <p class="text-white mt-3">
+                        Kemudian untuk settingan selanjutnya, ikuti saja seperti gambar di bawah ini. Ingat, kita
+                        mendeploy aplikasi
+                        kita ke Cloud Run, dimana itu merupakan tipe layanan <i>serverless</i> yang kita tidak perlu
+                        setup server dan lain-lain. Tapi kekurangannya adalah ketika aplikasi kita tidak memiliki
+                        trafik, dia akan sleep. Aplikasinya akan di-<i>booting</i> lagi ketika ada request yang masuk.
+
+                        <br>
+                        <br>
+                        Jika kamu ingin aplikasinya menyala secara terus menerus, kamu bisa pilih opsi <i>CPU is always
+                            allocated</i>, dan juga untuk <i>Minimum number of instances</i>-nya bisa diberi 1.
+                    </p>
+
+                    <blockquote>
+
+                        <cite>
+                            ⚠️⚠️⚠️
+                            <br>
+                            Hati-hati dalam mengalokasikan resources, sedikit kesalahan bisa membuat biaya Cloud-nya
+                            membengkak dan
+                            kamu mendapatkan tagihan billing dari GCP.
+                            <br>
+                            ⚠️⚠️⚠️
+                        </cite>
+                    </blockquote>
+
+                    <div class="row">
+                        <img src="/img/blog/03/8.png" alt="Proyek Vue menggunakaan Vite di GitHub"
+                            class="d-flex mx-auto" style="width: 500px;" />
+                    </div>
+
+                    <p class="text-white mt-3">
+                        Lalu, di bagian selanjutnya yaitu <i> Container(s), Volumes, Networking, Security </i> kita bisa
+                        menyetting beberapa konfigurasi sepertinya <i>environment variables</i>, jumlah memori, jumlah
+                        CPU, durasi <i>request timeout</i>, jumlah maksimum <i>concurrent request</i>,
+                        <i>autoscaling</i>, mengkoneksikan aplikasi kita dengan <i>Cloud SQL</i>, dan lain-lain. Disini
+                        saya akan membiarkannya secara default saja.
+
+                        <br>
+                        <br>
+                        Jika sudah, klik tombol <i>Create</i>.
+                    </p>
+
+                    <p class="text-white mt-3">
+                        Kemudian akan muncul tampilan seperti ini, kamu bisa memantau proses <i>build</i> aplikasi
+                        Vite-nya dengan mengklik <code>(see <strong>logs</strong>)</code> yang ada status pending. Kamu
+                        juga otomatis
+                        akan mendapatkan domain dari Cloud Run beserta sertifikat SSL.
+                    </p>
+
+                    <div class="row">
+                        <img src="/img/blog/03/9.png" alt="Proyek Vue menggunakaan Vite di GitHub"
+                            class="d-flex mx-auto" />
+                    </div>
+
+
+                    <p class="text-white mt-3">
+                        Berikut ini adalah contoh proses building Docker image di Cloud Run dengan menggunakan bantuan
+                        dari Cloud Build.
+                    </p>
+
+                    <div class="row">
+                        <img src="/img/blog/03/10.png" alt="Proyek Vue menggunakaan Vite di GitHub"
+                            class="d-flex mx-auto" />
+                    </div>
+
+                    <p class="text-white mt-3">
+                        Kalau sudah selesai dibuild Docker image-nya dan sudah terdeploy, tampilannya akan menjadi
+                        seperti ini.
+                    </p>
+
+                    <div class="row">
+                        <img src="/img/blog/03/11.png" alt="Proyek Vue menggunakaan Vite di GitHub"
+                            class="d-flex mx-auto" />
+                    </div>
+
+                    <p class="text-white mt-3">
+                        Kemudian kamu bisa mengakses domain yang sudah diberikan oleh Cloud Run tadi. Sebagai contoh,
+                        punya saya terdeploy di
+                        <a href="https://vue-vite-serverless-muf7kziviq-as.a.run.app"
+                            target="_blank">https://vue-vite-serverless-muf7kziviq-as.a.run.app</a>.
+                    </p>
+
+                    <p class="text-white mt-3">
+                        🎉🎉 Tadaa! Jika kamu bisa mengikuti contoh yang saya berikan, sekarang kamu sudah berhasil
+                        mendeploy aplikasi frontend berbasis Vite ke Cloud Run!
+                    </p>
+
+                    <br>
+
+                    <p class="text-white">
+                        Ada beberapa fitur built-in dari Cloud Run yang cukup berguna, misalnya fitur Metrics yang bisa
+                        kita gunakan untuk melihat seberapa banyak trafik yang mengakses web kita dalam satu waktu.
+                    </p>
+
+                    <div class="row">
+                        <img src="/img/blog/03/12.png" alt="Proyek Vue menggunakaan Vite di GitHub"
+                            class="d-flex mx-auto" />
+                    </div>
+
+                    <p class="text-white mt-3">
+                        Kemudian misalnya kalau kamu mau melihat log aplikasi kamu yang sudah berjalan, untuk mengecek
+                        apakah ada error, kamu bisa ke tab <i>LOGS</i>, contohnya nanti seperti ini.
+                    </p>
+
+                    <div class="row">
+                        <img src="/img/blog/03/13.png" alt="Proyek Vue menggunakaan Vite di GitHub"
+                            class="d-flex mx-auto" />
+                    </div>
+
+                    <br>
+
+                    <p class="text-white">
+                        Sekian tulisan tentang cara mengdeploy aplikasi frontend berbasis Vite di Cloud Run, sampai
+                        jumpa di tulisan berikutnya! 😁
+                    </p>
+                    </article>
+
+
+                    <!-- ABOUT -->
+                    <div class="about shadow-sm p-4 rounded my-5">
+                        <div class="row mx-auto align-items-center d-flex flex-column flex-md-row text-center">
+                            <div class="col-md-4 mb-4 mb-md-0">
+                                <img src="../img/profile.jfif" class="rounded-circle mw-100" width="250px" alt="" />
+                            </div>
+                            <div class="col-md-8">
+                                <h2 class="mb-3 text-white">Eric Julianto</h2>
+                                <p class="lead mb-4 text-white">
+                                    Research Analyst at Braincore
+                                </p>
+                                <p class="text-white">
+                                    <i>“He, who has a why to live for, can bear with almost any
+                                        how.”</i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-3">
+                        <a href="../blog.html" class="btn btn-secondary">Back to Blog</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center text-white p-3">
+        <p class="mt-2">
+            Made with
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-heart-fill text-white" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z">
+                </path>
+            </svg>
+            by Eric Julianto
+        </p>
+    </footer>
+</body>
+
+</html>
