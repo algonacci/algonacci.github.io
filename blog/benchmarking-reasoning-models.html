@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Benchmarking Reasoning Models</title>
+  <link rel="icon" href="/img/Chara.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+
+  <!-- SEO Metatags -->
+  <meta name="title" content="Benchmarking Reasoning Models" />
+  <meta name="description"
+    content="Comparing three reasoning models from different providers: OpenAI o3-mini, Anthropic Claude 3.7 Sonnet, and DeepSeek R1" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://algonacci.github.io/" />
+  <meta property="og:title" content="Benchmarking Reasoning Models" />
+  <meta property="og:description"
+    content="Comparing three reasoning models from different providers: OpenAI o3-mini, Anthropic Claude 3.7 Sonnet, and DeepSeek R1" />
+  <meta property="og:image" content="https://algonacci.github.io/img/blog/benchmarking-reasoning-models.png" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://algonacci.github.io/" />
+  <meta property="twitter:title" content="Benchmarking Reasoning Models" />
+  <meta property="twitter:description"
+    content="Comparing three reasoning models from different providers: OpenAI o3-mini, Anthropic Claude 3.7 Sonnet, and DeepSeek R1" />
+  <meta property="twitter:image" content="https://algonacci.github.io/img/blog/benchmarking-reasoning-models.png" />
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand text-white p-2" href="/">Algonacci</a>
+      <div class="d-flex">
+        <a href="https://github.com/algonacci" target="_blank"><i class="fab fa-github text-white px-2"></i></a>
+        <a href="https://twitter.com/algonacci" target="_blank"><i class="fab fa-twitter text-white px-2"></i></a>
+        <a href="../blog.html">
+          <i class="fa-brands fa-blogger-b text-white px-2"></i>
+        </a>
+        <a href="../blogwalking.html">
+          <i class="fa-solid fa-user-group text-white px-2"></i>
+        </a>
+        <a href="../guest-book.html">
+          <i class="fa-solid fa-address-book text-white px-2"></i>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="blog-post py-5" id="blog-post">
+    <div class="container-lg">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="section-title">
+            <a class="btn btn-secondary bg-drakula" href="../blog.html">
+              <i class="fas fa-arrow-left"></i> Back
+            </a>
+            <ol class="breadcrumb ms-auto mt-3" id="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="../blog.html">Blog</a></li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Benchmarking Reasoning Models
+              </li>
+            </ol>
+            <h2 class="text-white">Benchmarking Reasoning Models</h2>
+            <p class="text-muted">March 1, 2025</p>
+            <article>
+              <p class="text-white text-justify">
+                This document compares three reasoning models from different providers:
+              </p>
+              <ul class="text-white">
+                <li>OpenAI o3-mini</li>
+                <li>Anthropic Claude 3.7 Sonnet</li>
+                <li>DeepSeek R1</li>
+              </ul>
+              
+              <div class="d-flex justify-content-center my-4">
+                <a href="https://colab.research.google.com/drive/1zC2aiRDFq62Mf1DvwgnpuT0y9WW7Ucxa?usp=sharing" 
+                   target="_blank" class="btn btn-primary">
+                  <i class="fab fa-google"></i> Open In Colab
+                </a>
+              </div>
+
+              <h3 class="text-white mt-4">OpenAI GPT</h3>
+              <p class="text-white text-justify">
+                We selected <code>o3-mini-2025-01-31</code> as it is currently OpenAI's most cost-effective reasoning model.
+                For detailed pricing information, please visit <a href="https://platform.openai.com/docs/pricing" target="_blank">OpenAI Pricing</a>.
+              </p>
+              
+              <div class="row">
+                <img src="/img/blog/reasoning/openai-pricing.png" alt="OpenAI Pricing" class="d-flex mx-auto my-3" 
+                     style="max-width: 100%; height: auto;" />
+              </div>
+              
+              <p class="text-white text-justify">
+                The model accepts a <code>reasoning_effort</code> parameter with three possible values:
+              </p>
+              
+              <ul class="text-white">
+                <li><code>low</code></li>
+                <li><code>medium</code></li>
+                <li><code>high</code></li>
+              </ul>
+              
+              <div class="alert alert-info bg-drakula text-white">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                <strong>Note:</strong> While reasoning tokens are not visible via the API, they still occupy space in the model's context window and are billed as output tokens.
+              </div>
+
+              <h3 class="text-white mt-4">Anthropic Claude 3.7 Sonnet</h3>
+              <p class="text-white text-justify">
+                For this comparison, we're using <code>claude-3-7-sonnet-20250219</code>, Anthropic's dedicated reasoning model. While it's the most expensive model in our comparison, it offers unique capabilities that justify the cost.
+              </p>
+
+              <h4 class="text-white">Token Configuration</h4>
+              <p class="text-white text-justify">
+                By default, the model has a maximum token limit of 1024.
+              </p>
+              
+              <div class="row">
+                <img src="/img/blog/reasoning/claude-config.png" alt="Claude Token Configuration" class="d-flex mx-auto my-3" 
+                     style="max-width: 100%; height: auto;" />
+              </div>
+              
+              <p class="text-white text-justify">
+                To prevent incomplete responses, we increased this limit to 4096.
+              </p>
+
+              <h4 class="text-white">Operation Modes</h4>
+              <p class="text-white text-justify">
+                The <code>claude-3-7-sonnet-20250219</code> model offers two distinct operation modes:
+              </p>
+
+              <ol class="text-white">
+                <li>
+                  <strong>Standard Mode</strong>
+                  <ul>
+                    <li>Functions similarly to previous Claude models</li>
+                    <li>Provides direct responses without exposing internal reasoning</li>
+                  </ul>
+                </li>
+                <li class="mt-2">
+                  <strong>Extended Thinking Mode</strong>
+                  <ul>
+                    <li>Reveals Claude's reasoning process before delivering the final answer</li>
+                  </ul>
+                </li>
+              </ol>
+
+              <p class="text-white mt-3"><strong>API Example:</strong></p>
+              <pre class="bg-dark text-white p-3 rounded"><code>import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic();
+
+const response = await client.messages.create({
+  model: "claude-3-7-sonnet-20250219",
+  max_tokens: 20000,
+  thinking: {
+    type: "enabled",
+    budget_tokens: 16000,
+  },
+  messages: [
+    {
+      role: "user",
+      content: "Explain quantum entanglement",
+    },
+  ],
+});</code></pre>
+
+              <h4 class="text-white mt-4">Token Parameters</h4>
+              <p class="text-white text-justify">
+                When using extended thinking mode, configure these key parameters:
+              </p>
+
+              <h5 class="text-white"><strong>budget_tokens</strong></h5>
+              <ul class="text-white">
+                <li>Defines the maximum tokens allowed for internal reasoning processes</li>
+                <li>Must be smaller than <code>max_tokens</code></li>
+                <li>Larger budgets enable more thorough analysis of complex problems</li>
+                <li>The model may not consume the entire budget, especially above 32K tokens</li>
+              </ul>
+
+              <h5 class="text-white mt-3"><strong>max_tokens</strong></h5>
+              <ul class="text-white">
+                <li>Defines the maximum total tokens for the entire response</li>
+                <li>Includes <code>budget_tokens</code> as a subset</li>
+                <li>For Claude 3.7 Sonnet: a validation error occurs if prompt tokens + <code>max_tokens</code> exceeds the context window</li>
+              </ul>
+
+              <p class="text-white text-justify mt-3">
+                The extended thinking mode provides visibility into the reasoning process. For detailed examples, please refer to the attached Google Colab notebook.
+              </p>
+
+              <h3 class="text-white mt-4">DeepSeek R1</h3>
+              <p class="text-white text-justify">
+                We're using <code>deepseek-reasoner</code> (also known as DeepSeek R1), which offers the most competitive pricing in our comparison.
+              </p>
+
+              <p class="text-white text-justify">
+                DeepSeek provides full OpenAI API compatibility. Their documentation recommends using the OpenAI SDK, which enables seamless integration with LangChain-OpenAI as well.
+              </p>
+
+              <p class="text-white text-justify">
+                Similar to Anthropic Claude, DeepSeek R1 exposes its reasoning process in the response body. Access both the reasoning and final content through the API:
+              </p>
+
+              <pre class="bg-dark text-white p-3 rounded"><code>reasoning_content = response.choices[0].message.reasoning_content
+content = response.choices[0].message.content</code></pre>
+
+              <div class="alert alert-info bg-drakula text-white mt-3">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                <strong>Note:</strong> The reasoning process tokens are included in the total output token count for billing purposes.
+              </div>
+
+              <pre class="bg-dark text-white p-3 rounded"><code>{
+    "completion_tokens": 1312,
+    "prompt_tokens": 21,
+    "total_tokens": 1333,
+    "completion_tokens_details": {
+        "accepted_prediction_tokens": None,
+        "audio_tokens": None,
+        "reasoning_tokens": 334,
+        "rejected_prediction_tokens": None
+    },
+    "prompt_tokens_details": {
+        "audio_tokens": None,
+        "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 21
+}</code></pre>
+
+              <h2 class="text-white mt-4">Key Findings</h2>
+              <ul class="text-white">
+                <li>All reasoning and thinking processes are billed as output tokens</li>
+                <li>Only Claude and DeepSeek expose their reasoning processes in the response</li>
+                <li>OpenAI processes reasoning internally within their system</li>
+                <li>In some cases, using HTTP libraries or official SDK is better to extract more metadata</li>
+              </ul>
+
+              <h2 class="text-white mt-4">Pricing Comparison (per million tokens)</h2>
+              <div class="table-responsive">
+                <table class="table table-dark table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Model</th>
+                      <th>Price</th>
+                      <th>Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Anthropic Claude</td>
+                      <td>$15.00</td>
+                      <td>Most expensive option</td>
+                    </tr>
+                    <tr>
+                      <td>OpenAI o3-mini</td>
+                      <td>$4.40</td>
+                      <td>Most cost-effective in OpenAI platform for reasoning model</td>
+                    </tr>
+                    <tr>
+                      <td>OpenAI o1</td>
+                      <td>$60.00</td>
+                      <td>Premium pricing</td>
+                    </tr>
+                    <tr>
+                      <td>DeepSeek R1</td>
+                      <td>$2.19</td>
+                      <td>Most cost-effective</td>
+                    </tr>
+                    <tr>
+                      <td>DeepSeek R1 (discount)</td>
+                      <td>$0.55</td>
+                      <td>75% off (UTC 16:30-00:30)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+            
+            <!-- ABOUT -->
+            <div class="about shadow-sm p-4 rounded my-5">
+              <div class="row mx-auto align-items-center d-flex flex-column flex-md-row text-center">
+                <div class="col-md-4 mb-4 mb-md-0">
+                  <img src="../img/profile.jfif" class="rounded-circle mw-100" width="250px" alt="" />
+                </div>
+                <div class="col-md-8">
+                  <h2 class="mb-3 text-white">Eric Julianto</h2>
+                  <p class="lead mb-4 text-white">
+                    Research Analyst at Braincore
+                  </p>
+                  <p class="text-white">
+                    <i>"He, who has a why to live for, can bear with almost any how."</i>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="row p-3">
+              <a href="../blog.html" class="btn btn-secondary">Back to Blog</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="text-center text-white p-3">
+    <p class="mt-2">
+      Made with
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+        class="bi bi-heart-fill text-white" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"></path>
+      </svg>
+      by Eric Julianto
+    </p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
