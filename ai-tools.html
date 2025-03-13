@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Algonacci</title>
+    <link rel="icon" href="/img/Chara.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Alpine.js -->
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <!-- Custom styles for AI tools page -->
+    <style>
+      .card-img-container {
+        height: 200px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #282a36;
+      }
+
+      .card-img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.3s ease;
+      }
+
+      .card:hover .card-img-container img {
+        transform: scale(1.05);
+      }
+
+      .status-paid {
+        color: #ff6b6b;
+        font-weight: 500;
+      }
+
+      .status-free {
+        color: #51cf66;
+        font-weight: 500;
+      }
+
+      .status-freemium {
+        color: #339af0;
+        font-weight: 500;
+      }
+    </style>
+
+    <!-- SEO Metatags -->
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Eric Julianto Braincore" />
+    <meta name="content" content="Web Portfolio Eric Julianto" />
+    <meta name="description" content="Web Portfolio Eric Julianto" />
+    <meta property="og:type" content="Professional Services" />
+    <meta property="og:title" content="Web Portfolio Eric Julianto" />
+    <meta property="og:description" content="Web Portfolio Eric Julianto" />
+    <meta
+      property="og:image"
+      content="https://raw.githubusercontent.com/algonacci/Free-CDN/main/Banner.png"
+    />
+    <meta property="og:url" content="algonacci.github.io" />
+    <meta name="twitter:title" content="Web Portfolio Eric Julianto" />
+    <meta name="twitter:description" content="Web Portfolio Eric Julianto" />
+    <meta
+      name="twitter:image"
+      content="https://raw.githubusercontent.com/algonacci/Free-CDN/main/Banner.png"
+    />
+    <meta
+      name="twitter:card"
+      content="https://raw.githubusercontent.com/algonacci/Free-CDN/main/Banner.png"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand text-white p-2" href="/">Algonacci</a>
+        <div class="d-flex">
+          <a href="https://github.com/algonacci" target="_blank"
+            ><i class="fab fa-github text-white px-2"></i
+          ></a>
+          <a href="https://twitter.com/algonacci" target="_blank"
+            ><i class="fab fa-twitter text-white px-2"></i
+          ></a>
+          <a href="blog.html">
+            <i class="fa-brands fa-blogger-b text-white px-2"></i>
+          </a>
+          <a href="blogwalking.html">
+            <i class="fa-solid fa-user-group text-white px-2"></i>
+          </a>
+          <a href="guest-book.html">
+            <i class="fa-solid fa-address-book text-white px-2"></i>
+          </a>
+          <a href="ai-tools.html">
+            <i class="fa-solid fa-robot text-white px-2"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <section class="blogwalking py-5" id="blogwalking">
+      <div class="container-lg">
+        <div class="row justify-content-center text-center">
+          <div class="col-lg-8">
+            <div class="section-title text-center">
+              <h2 class="text-white">AI Tools</h2>
+              <p class="text-white text-justify">
+                Here are some AI tools that I use in my daily life
+              </p>
+              <br />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="blog text-white" id="blog" x-data="aiTools()">
+      <div class="container-lg">
+        <!-- Search and Category Filters -->
+        <div class="row mb-4">
+          <div class="col-md-6 mb-3">
+            <div class="card border-dark shadow-sm bg-drakula p-3">
+              <div class="input-group">
+                <span class="input-group-text bg-dark text-white border-dark">
+                  <i class="fas fa-search"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control bg-dark text-white border-dark"
+                  placeholder="Search AI tools..."
+                  x-model="searchTerm"
+                  @input="filterTools()"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <div class="card border-dark shadow-sm bg-drakula p-3">
+              <div class="d-flex flex-wrap gap-2">
+                <button
+                  class="btn btn-sm"
+                  :class="selectedCategory === 'all' ? 'bg-purple text-white' : 'btn-outline-light'"
+                  @click="selectCategory('all')"
+                >
+                  All
+                </button>
+                <template x-for="category in categories" :key="category">
+                  <button
+                    class="btn btn-sm"
+                    :class="selectedCategory === category ? 'bg-purple text-white' : 'btn-outline-light'"
+                    @click="selectCategory(category)"
+                    x-text="category"
+                  ></button>
+                </template>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results info -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="card border-dark shadow-sm bg-drakula p-3">
+              <p class="text-white m-0">
+                <i class="fas fa-info-circle me-2"></i>
+                <span x-text="filteredTools.length"></span> tools found
+                <span
+                  x-show="searchTerm !== ''"
+                  x-text="` matching '${searchTerm}'`"
+                ></span>
+                <span
+                  x-show="selectedCategory !== 'all'"
+                  x-text="` in '${selectedCategory}'`"
+                ></span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Tools Cards -->
+        <div class="row justify-content-center" id="projects">
+          <template x-for="tool in filteredTools" :key="tool.id">
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card border-dark shadow-sm bg-drakula p-3">
+                <a :href="tool.url" target="_blank">
+                  <div class="card-img-container">
+                    <img :src="tool.image" :alt="tool.name" />
+                  </div>
+                </a>
+                <div class="card-body">
+                  <h5>
+                    <a
+                      :href="tool.url"
+                      target="_blank"
+                      class="card-title text-white"
+                      style="line-height: 30px"
+                      x-text="tool.name"
+                    ></a>
+                  </h5>
+                  <p
+                    :class="{
+                      'status-paid': tool.status === 'Paid',
+                      'status-free': tool.status === 'Free',
+                      'status-freemium': tool.status === 'Freemium'
+                    }"
+                    x-text="tool.status"
+                  ></p>
+                  <p class="text-justify" x-text="tool.description"></p>
+                  <div class="tags mb-3">
+                    <span class="tag" x-text="tool.category"></span>
+                    <template x-for="tag in tool.tags" :key="tag">
+                      <span class="tag" x-text="tag"></span>
+                    </template>
+                  </div>
+                  <div class="row">
+                    <a :href="tool.url" class="btn btn-purple" target="_blank"
+                      >Learn More</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+
+          <!-- No Results Message -->
+          <div
+            class="col-12 text-center py-5"
+            x-show="filteredTools.length === 0"
+          >
+            <p class="text-muted">
+              No AI tools found matching your search criteria
+            </p>
+            <button class="btn btn-outline-light mt-3" @click="resetFilters()">
+              Reset Filters
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Alpine.js script -->
+    <script>
+      function aiTools() {
+        return {
+          searchTerm: "",
+          selectedCategory: "all",
+          categories: [
+            "LLM",
+            "Image",
+            "Code",
+            "Voice",
+            "Video",
+            "Productivity",
+          ],
+          tools: [
+            {
+              id: 1,
+              name: "ChatGPT Plus",
+              url: "https://chat.openai.com",
+              image:
+                "https://wallpapers.com/images/hd/chatgpt-pnu1s0vyuz9ckn9u.jpg",
+              category: "LLM",
+              status: "Paid",
+              tags: ["AI", "OpenAI"],
+              description:
+                "ChatGPT Plus is a premium version of ChatGPT that offers additional features and capabilities.",
+            },
+            {
+              id: 2,
+              name: "Claude",
+              url: "https://claude.ai/",
+              image:
+                "https://chatgptaihub.com/wp-content/uploads/2023/07/Claude-AI-Logo-With-Color-Background.png",
+              category: "LLM",
+              status: "Freemium",
+              tags: ["AI", "Assistant"],
+              description:
+                "Claude is an AI assistant created by Anthropic to be helpful, harmless, and honest. It excels at thoughtful reasoning and creative writing tasks.",
+            },
+            {
+              id: 3,
+              name: "DeepSeek",
+              url: "https://www.deepseek.com/",
+              image:
+                "https://cdn.fakta.com/public/media/image/general/fakta.com-1735539297973-Deepseek.jpg",
+              category: "LLM",
+              status: "Free",
+              tags: ["AI", "DeepSeek"],
+              description:
+                "DeepSeek is a large language model by DeepSeek that can engage in conversational dialogue and perform various language tasks.",
+            },
+            {
+              id: 4,
+              name: "Perplexity",
+              url: "https://perplexity.ai/",
+              image:
+                "https://go-dive.net/wp-content/uploads/2024/06/Untitled-design-2024-06-05T170355.123.webp",
+              category: "LLM",
+              status: "Freemium",
+              tags: ["AI", "Perplexity", "Search Engine"],
+              description:
+                "Perplexity is a large language model by Perplexity that can engage in conversational dialogue and perform various language tasks.",
+            },
+            {
+              id: 5,
+              name: "Mistral",
+              url: "https://mistral.ai/",
+              image:
+                "https://framerusercontent.com/images/QbnO5yCmsn51bvHSt5vstNoJBM.webp",
+              category: "LLM",
+              status: "Freemium",
+              tags: ["AI", "Mistral"],
+              description:
+                "Mistral is a large language model by Mistral that can engage in conversational dialogue and perform various language tasks.",
+            },
+            {
+              id: 6,
+              name: "Gemini",
+              url: "https://gemini.google.com",
+              image:
+                "https://i.pcmag.com/imagery/articles/05br9SjEjbGYvr3ZmsAztMv-1..v1724868358.jpg",
+              category: "LLM",
+              status: "Freemium",
+              tags: ["AI", "Google", "Gemini"],
+              description:
+                "Gemini is Google's advanced AI model designed for powerful reasoning and multimodal capabilities.",
+            },
+            {
+              id: 7,
+              name: "Grok",
+              url: "https://x.ai/",
+              image:
+                "https://theluxuryplaybook.com/wp-content/uploads/2024/08/Gork-AI.jpg",
+              category: "LLM",
+              status: "Paid",
+              tags: ["AI", "X", "Elon Musk"],
+              description:
+                "Grok is an AI assistant developed by xAI, integrated with X (formerly Twitter) for real-time insights.",
+            },
+            {
+              id: 8,
+              name: "Ollama",
+              url: "https://ollama.ai/",
+              image: "https://caphe.dev/static/images/8c80c571.png",
+              category: "LLM",
+              status: "Free",
+              tags: ["AI", "Ollama"],
+              description:
+                "Ollama is a lightweight AI model designed for local inference with open-source LLMs.",
+            },
+            {
+              id: 9,
+              name: "OpenWebUI",
+              url: "https://openwebui.com/",
+              image:
+                "https://miro.medium.com/v2/resize:fit:1400/1*m3t8X6xjaiXtuvFv4ZAlWA.png",
+              category: "LLM",
+              status: "Free",
+              tags: ["AI", "UI", "LLM"],
+              description:
+                "OpenWebUI is an open-source web-based UI for interacting with large language models.",
+            },
+            {
+              id: 10,
+              name: "Microsoft Copilot",
+              url: "https://copilot.microsoft.com/",
+              image:
+                "https://pub-f8c0307ce82b4885975558b04e13a858.r2.dev/2023/09/Press-Image_FINAL_16x9-4.jpg",
+              category: "LLM",
+              status: "Freemium",
+              tags: ["AI", "Microsoft", "Copilot"],
+              description:
+                "Microsoft Copilot is an AI-powered assistant integrated into Microsoft products like Windows and Office.",
+            },
+            {
+              id: 11,
+              name: "Groq",
+              url: "https://groq.com/",
+              image:
+                "https://cdn.prod.website-files.com/5da60b8bfc98fdf11111b791/667d84f156ec37bd39bba262_What%20is%20Groq%20AI%20and%20How%20to%20Use%20It.webp",
+              category: "LLM",
+              status: "Free",
+              tags: ["AI", "Groq"],
+              description:
+                "Groq is an AI platform known for its ultra-fast inference speeds on custom AI hardware.",
+            },
+            {
+              id: 12,
+              name: "DeepL",
+              url: "https://www.deepl.com/",
+              image:
+                "https://images.prismic.io/contrary-research/676a0f29-2b42-4441-92fa-ea275ae4e73f_DeepL+cover.png?auto=compress,format",
+              category: "Translation AI",
+              status: "Freemium",
+              tags: ["AI", "Translation"],
+              description:
+                "DeepL is an AI-based translation service known for its high-quality and accurate translations.",
+            },
+            {
+              id: 13,
+              name: "Runway ML",
+              url: "https://runwayml.com/",
+              image:
+                "https://appsumo2-cdn.appsumo.com/media/selfsubmissions/images/46075782-bd2c-4596-a9e0-a038292fd0e3.png",
+              category: "AI Creative Tools",
+              status: "Paid",
+              tags: ["AI", "Creative", "ML"],
+              description:
+                "Runway ML is a creative AI tool for generating videos, images, and 3D models.",
+            },
+            {
+              id: 14,
+              name: "Kling",
+              url: "https://kling.ai/",
+              image:
+                "https://blog.pintu.co.id/wp-content/uploads/2024/07/kling-ai.jpg",
+              category: "LLM",
+              status: "Free",
+              tags: ["AI", "Kling"],
+              description:
+                "Kling is an AI language model designed for efficient multilingual processing.",
+            },
+            {
+              id: 15,
+              name: "Hailuo",
+              url: "https://hailuo.ai/",
+              image:
+                "https://logowik.com/content/uploads/images/hailuo-ai8415.logowik.com.webp",
+              category: "LLM",
+              status: "Free",
+              tags: ["AI", "Hailuo"],
+              description:
+                "Hailuo AI is an advanced large language model focusing on high-efficiency natural language processing.",
+            },
+            {
+              id: 16,
+              name: "Flux Black Forest",
+              url: "https://flux.ai/",
+              image:
+                "https://miro.medium.com/v2/resize:fit:1248/0*RYW4im9__K8h6lMb.png",
+              category: "AI",
+              status: "Free",
+              tags: ["AI", "Flux"],
+              description:
+                "Flux Black Forest is an AI-powered computational engine designed for complex problem-solving.",
+            },
+            {
+              id: 17,
+              name: "Cursor",
+              url: "https://cursor.sh/",
+              image:
+                "https://media.licdn.com/dms/image/v2/D5612AQGoTwf76ChmTw/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1728127423385?e=2147483647&v=beta&t=EhaLZIgZqB5Yue4jxDOZ2qA5InTzwjqzoH1MsM3lMaw",
+              category: "AI Coding",
+              status: "Free",
+              tags: ["AI", "Coding", "Cursor"],
+              description:
+                "Cursor is an AI-powered coding assistant designed to enhance software development productivity.",
+            },
+            {
+              id: 18,
+              name: "Bolt",
+              url: "https://bolt.new/",
+              image:
+                "https://miro.medium.com/v2/resize:fit:1400/1*vbo04xVLorq_rvpeEDCaAg.jpeg",
+              category: "LLM",
+              status: "Free",
+              tags: ["AI", "Bolt"],
+              description:
+                "Bolt AI is a high-speed language model optimized for real-time interactions.",
+            },
+            {
+              id: 19,
+              name: "V0",
+              url: "https://v0.dev/",
+              image:
+                "https://vercel.com/_next/image?url=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Fcontentful%2Fimage%2Fe5382hct74si%2F4ivWBf1RT18864X9FyViLh%2F6561b715a956ce6100af01f4399fa001%2F600x300__1_.png&w=1920&q=75",
+              category: "AI Coding",
+              status: "Free",
+              tags: ["AI", "V0", "Coding"],
+              description:
+                "V0 is an AI-powered no-code/low-code development platform for rapid prototyping.",
+            },
+          ],
+          filteredTools: [],
+
+          init() {
+            this.filteredTools = [...this.tools];
+          },
+
+          filterTools() {
+            this.filteredTools = this.tools.filter((tool) => {
+              const matchesSearch =
+                this.searchTerm === "" ||
+                tool.name
+                  .toLowerCase()
+                  .includes(this.searchTerm.toLowerCase()) ||
+                tool.description
+                  .toLowerCase()
+                  .includes(this.searchTerm.toLowerCase()) ||
+                tool.tags.some((tag) =>
+                  tag.toLowerCase().includes(this.searchTerm.toLowerCase())
+                );
+
+              const matchesCategory =
+                this.selectedCategory === "all" ||
+                tool.category === this.selectedCategory;
+
+              return matchesSearch && matchesCategory;
+            });
+          },
+
+          selectCategory(category) {
+            this.selectedCategory = category;
+            this.filterTools();
+          },
+
+          resetFilters() {
+            this.searchTerm = "";
+            this.selectedCategory = "all";
+            this.filterTools();
+          },
+        };
+      }
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
