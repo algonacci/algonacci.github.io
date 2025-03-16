@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Algonacci</title>
     <link rel="icon" href="/img/Chara.png" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -64,30 +63,81 @@
         color: #339af0;
         font-weight: 500;
       }
+
+      .status-custom {
+        color: #9775fa;
+        font-weight: 500;
+      }
+
+      .tag {
+        display: inline-block;
+        background-color: #44475a;
+        color: #f8f8f2;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        margin-right: 6px;
+        margin-bottom: 6px;
+      }
     </style>
 
     <!-- SEO Metatags -->
+    <!-- Meta Robots -->
     <meta name="robots" content="index, follow" />
+
+    <!-- Meta Keywords -->
+    <meta
+      name="keywords"
+      content="AI Tools, Artificial Intelligence, LLM, Machine Learning, OpenAI, LangChain, Replit, Tavily, Whisper, AI Development"
+    />
+
+    <!-- Meta Author -->
     <meta name="author" content="Eric Julianto Braincore" />
-    <meta name="content" content="Web Portfolio Eric Julianto" />
-    <meta name="description" content="Web Portfolio Eric Julianto" />
-    <meta property="og:type" content="Professional Services" />
-    <meta property="og:title" content="Web Portfolio Eric Julianto" />
-    <meta property="og:description" content="Web Portfolio Eric Julianto" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://algonacci.github.io/ai-tools.html" />
+
+    <!-- Primary Meta Tags -->
+    <title>AI Tools Collection | Eric Julianto</title>
+    <meta name="title" content="AI Tools Collection | Eric Julianto" />
+    <meta
+      name="description"
+      content="A curated collection of the best AI tools for developers, researchers, and enthusiasts. Discover powerful AI platforms, frameworks, and services to enhance your projects."
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://algonacci.github.io/ai-tools.html"
+    />
+    <meta property="og:title" content="AI Tools Collection | Eric Julianto" />
+    <meta
+      property="og:description"
+      content="A curated collection of the best AI tools for developers, researchers, and enthusiasts. Discover powerful AI platforms, frameworks, and services to enhance your projects."
+    />
     <meta
       property="og:image"
-      content="https://raw.githubusercontent.com/algonacci/Free-CDN/main/Banner.png"
+      content="https://algonacci.github.io/img/ai-tools.png"
     />
-    <meta property="og:url" content="algonacci.github.io" />
-    <meta name="twitter:title" content="Web Portfolio Eric Julianto" />
-    <meta name="twitter:description" content="Web Portfolio Eric Julianto" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
     <meta
-      name="twitter:image"
-      content="https://raw.githubusercontent.com/algonacci/Free-CDN/main/Banner.png"
+      property="twitter:url"
+      content="https://algonacci.github.io/ai-tools.html"
     />
     <meta
-      name="twitter:card"
-      content="https://raw.githubusercontent.com/algonacci/Free-CDN/main/Banner.png"
+      property="twitter:title"
+      content="AI Tools Collection | Eric Julianto"
+    />
+    <meta
+      property="twitter:description"
+      content="A curated collection of the best AI tools for developers, researchers, and enthusiasts. Discover powerful AI platforms, frameworks, and services to enhance your projects."
+    />
+    <meta
+      property="twitter:image"
+      content="https://algonacci.github.io/img/ai-tools.png"
     />
   </head>
   <body>
@@ -135,9 +185,9 @@
 
     <section class="blog text-white" id="blog" x-data="aiTools()">
       <div class="container-lg">
-        <!-- Search and Category Filters -->
-        <div class="row mb-4">
-          <div class="col-md-6 mb-3">
+        <!-- Search Filter -->
+        <div class="row mb-3">
+          <div class="col-12">
             <div class="card border-dark shadow-sm bg-drakula p-3">
               <div class="input-group">
                 <span class="input-group-text bg-dark text-white border-dark">
@@ -153,7 +203,11 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 mb-3">
+        </div>
+
+        <!-- Category Filters -->
+        <div class="row mb-4">
+          <div class="col-12">
             <div class="card border-dark shadow-sm bg-drakula p-3">
               <div class="d-flex flex-wrap gap-2">
                 <button
@@ -196,9 +250,41 @@
           </div>
         </div>
 
+        <!-- Status explanation -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="card border-dark shadow-sm bg-drakula p-3">
+              <ul class="list-unstyled mb-0">
+                <li class="mb-2">
+                  <span class="status-paid me-2">Paid:</span>
+                  <span class="text-white">I (myself) paid for this tools</span>
+                </li>
+                <li class="mb-2">
+                  <span class="status-freemium me-2">Freemium:</span>
+                  <span class="text-white"
+                    >Tools that I use with free tier but have usage limits</span
+                  >
+                </li>
+                <li class="mb-2">
+                  <span class="status-free me-2">Free:</span>
+                  <span class="text-white"
+                    >Tools that are completely free to use</span
+                  >
+                </li>
+                <li>
+                  <span class="me-2" style="color: #9775fa; font-weight: 500"
+                    >Custom:</span
+                  >
+                  <span class="text-white">I (myself) created these tools</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         <!-- AI Tools Cards -->
         <div class="row justify-content-center" id="projects">
-          <template x-for="tool in filteredTools" :key="tool.id">
+          <template x-for="tool in filteredTools" :key="tool.name">
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="card border-dark shadow-sm bg-drakula p-3">
                 <a :href="tool.url" target="_blank">
@@ -220,7 +306,8 @@
                     :class="{
                       'status-paid': tool.status === 'Paid',
                       'status-free': tool.status === 'Free',
-                      'status-freemium': tool.status === 'Freemium'
+                      'status-freemium': tool.status === 'Freemium',
+                      'status-custom': tool.status === 'Custom'
                     }"
                     x-text="tool.status"
                   ></p>
@@ -230,11 +317,6 @@
                     <template x-for="tag in tool.tags" :key="tag">
                       <span class="tag" x-text="tag"></span>
                     </template>
-                  </div>
-                  <div class="row">
-                    <a :href="tool.url" class="btn btn-purple" target="_blank"
-                      >Learn More</a
-                    >
                   </div>
                 </div>
               </div>
@@ -270,10 +352,22 @@
             "Voice",
             "Video",
             "Productivity",
+            "Image Generation",
+            "AI Platform",
+            "AI Coding",
+            "Translation AI",
+            "AI Creative Tools",
+            "Music Generation",
+            "Presentation",
+            "Voice Generation",
+            "IDE",
+            "Search Engine",
+            "Speech Recognition",
+            "AI Framework",
+            "AI Development",
           ],
           tools: [
             {
-              id: 1,
               name: "ChatGPT Plus",
               url: "https://chat.openai.com",
               image:
@@ -285,55 +379,50 @@
                 "ChatGPT Plus is a premium version of ChatGPT that offers additional features and capabilities.",
             },
             {
-              id: 2,
               name: "Claude",
               url: "https://claude.ai/",
               image:
                 "https://chatgptaihub.com/wp-content/uploads/2023/07/Claude-AI-Logo-With-Color-Background.png",
               category: "LLM",
-              status: "Freemium",
+              status: "Paid",
               tags: ["AI", "Assistant"],
               description:
                 "Claude is an AI assistant created by Anthropic to be helpful, harmless, and honest. It excels at thoughtful reasoning and creative writing tasks.",
             },
             {
-              id: 3,
               name: "DeepSeek",
               url: "https://www.deepseek.com/",
               image:
                 "https://cdn.fakta.com/public/media/image/general/fakta.com-1735539297973-Deepseek.jpg",
               category: "LLM",
-              status: "Free",
+              status: "Paid",
               tags: ["AI", "DeepSeek"],
               description:
-                "DeepSeek is a large language model by DeepSeek that can engage in conversational dialogue and perform various language tasks.",
+                "DeepSeek is a Chinese AI company offering powerful language models that excel at mathematical reasoning and coding tasks.",
             },
             {
-              id: 4,
               name: "Perplexity",
-              url: "https://perplexity.ai/",
+              url: "https://www.perplexity.ai/",
               image:
-                "https://go-dive.net/wp-content/uploads/2024/06/Untitled-design-2024-06-05T170355.123.webp",
-              category: "LLM",
+                "https://d1.awsstatic.com/perplexity-logo.fb0a5659778ed3654ffa5604c8feaa92b2d04c20.jpg",
+              category: "Search Engine",
               status: "Freemium",
-              tags: ["AI", "Perplexity", "Search Engine"],
+              tags: ["Search", "Research", "Knowledge"],
               description:
-                "Perplexity is a large language model by Perplexity that can engage in conversational dialogue and perform various language tasks.",
+                "Perplexity is an AI-powered search engine that provides comprehensive answers to complex questions by analyzing multiple sources and generating detailed responses with citations.",
             },
             {
-              id: 5,
               name: "Mistral",
               url: "https://mistral.ai/",
               image:
                 "https://framerusercontent.com/images/QbnO5yCmsn51bvHSt5vstNoJBM.webp",
               category: "LLM",
-              status: "Freemium",
+              status: "Paid",
               tags: ["AI", "Mistral"],
               description:
-                "Mistral is a large language model by Mistral that can engage in conversational dialogue and perform various language tasks.",
+                "Mistral is a large language model by French company that can engage in conversational dialogue. I use their OCR model in some of my projects.",
             },
             {
-              id: 6,
               name: "Gemini",
               url: "https://gemini.google.com",
               image:
@@ -342,45 +431,9 @@
               status: "Freemium",
               tags: ["AI", "Google", "Gemini"],
               description:
-                "Gemini is Google's advanced AI model designed for powerful reasoning and multimodal capabilities.",
+                "Gemini is Google's advanced AI model designed to process large amounts of context and multimodal capabilities. I leverage its capabilities for image recognition and processing large amounts of context.",
             },
             {
-              id: 7,
-              name: "Grok",
-              url: "https://x.ai/",
-              image:
-                "https://theluxuryplaybook.com/wp-content/uploads/2024/08/Gork-AI.jpg",
-              category: "LLM",
-              status: "Paid",
-              tags: ["AI", "X", "Elon Musk"],
-              description:
-                "Grok is an AI assistant developed by xAI, integrated with X (formerly Twitter) for real-time insights.",
-            },
-            {
-              id: 8,
-              name: "Ollama",
-              url: "https://ollama.ai/",
-              image: "https://caphe.dev/static/images/8c80c571.png",
-              category: "LLM",
-              status: "Free",
-              tags: ["AI", "Ollama"],
-              description:
-                "Ollama is a lightweight AI model designed for local inference with open-source LLMs.",
-            },
-            {
-              id: 9,
-              name: "OpenWebUI",
-              url: "https://openwebui.com/",
-              image:
-                "https://miro.medium.com/v2/resize:fit:1400/1*m3t8X6xjaiXtuvFv4ZAlWA.png",
-              category: "LLM",
-              status: "Free",
-              tags: ["AI", "UI", "LLM"],
-              description:
-                "OpenWebUI is an open-source web-based UI for interacting with large language models.",
-            },
-            {
-              id: 10,
               name: "Microsoft Copilot",
               url: "https://copilot.microsoft.com/",
               image:
@@ -392,19 +445,104 @@
                 "Microsoft Copilot is an AI-powered assistant integrated into Microsoft products like Windows and Office.",
             },
             {
-              id: 11,
+              name: "Qwen",
+              url: "https://qwen.ai/",
+              image:
+                "https://smaratungga.ac.id/admin/artikel/file/67a2cb8390985.jpg",
+              category: "LLM",
+              status: "Freemium",
+              tags: ["AI", "Qwen"],
+              description:
+                "Qwen is an AI model that provides a wide range of features such as text generation, image processing, and more.",
+            },
+
+            {
+              name: "Grok",
+              url: "https://x.ai/",
+              image:
+                "https://theluxuryplaybook.com/wp-content/uploads/2024/08/Gork-AI.jpg",
+              category: "LLM",
+              status: "Freemium",
+              tags: ["AI", "X", "Elon Musk"],
+              description:
+                "Grok is an AI assistant developed by xAI, integrated with X (formerly Twitter) for real-time insights.",
+            },
+            {
+              name: "Ollama",
+              url: "https://ollama.ai/",
+              image: "https://caphe.dev/static/images/8c80c571.png",
+              category: "LLM",
+              status: "Free",
+              tags: ["AI", "Ollama"],
+              description:
+                "Ollama is a lightweight AI model designed for local inference with open-source LLMs.",
+            },
+            {
+              name: "OpenWebUI",
+              url: "https://openwebui.com/",
+              image:
+                "https://miro.medium.com/v2/resize:fit:1400/1*m3t8X6xjaiXtuvFv4ZAlWA.png",
+              category: "LLM",
+              status: "Free",
+              tags: ["AI", "UI", "LLM"],
+              description:
+                "OpenWebUI is an open-source web-based UI for interacting with large language models.",
+            },
+            {
               name: "Groq",
               url: "https://groq.com/",
               image:
                 "https://cdn.prod.website-files.com/5da60b8bfc98fdf11111b791/667d84f156ec37bd39bba262_What%20is%20Groq%20AI%20and%20How%20to%20Use%20It.webp",
               category: "LLM",
-              status: "Free",
-              tags: ["AI", "Groq"],
+              status: "Freemium",
+              tags: ["AI", "Groq", "LLM Provider"],
               description:
-                "Groq is an AI platform known for its ultra-fast inference speeds on custom AI hardware.",
+                "Groq is an LLM provider known for its ultra-fast inference speeds, offering access to models like Llama 2, Mixtral, and Gemma with significantly higher throughput than competitors.",
             },
             {
-              id: 12,
+              name: "SambaNova",
+              url: "https://sambanova.ai/",
+              image:
+                "https://sambanova.ai/hubfs/sambanova-x-li-card-1104x552.png",
+              category: "LLM",
+              status: "Freemium",
+              tags: ["AI", "SambaNova", "LLM Provider"],
+              description:
+                "SambaNova is an AI platform offering high-speed inference for large language models, featuring the SN40L reconfigurable dataflow unit that delivers exceptional performance for generative and agentic AI workloads.",
+            },
+            {
+              name: "OpenRouter",
+              url: "https://openrouter.ai/",
+              image: "https://openrouter.ai/dynamic-og",
+              category: "LLM",
+              status: "Freemium",
+              tags: ["AI", "OpenRouter", "LLM Provider"],
+              description:
+                "OpenRouter provides unified access to over 300 AI models through a single API, simplifying the process of integrating multiple language models into applications with standardized access and usage tracking.",
+            },
+            {
+              name: "OpenAI",
+              url: "https://openai.com/",
+              image:
+                "https://garuda.tv/wp-content/uploads/2025/03/Ilustrasi-OpenAI-Dok.-Istimewa.jpg",
+              category: "AI Platform",
+              status: "Freemium",
+              tags: ["LLM", "DALL-E", "Embeddings", "Agent SDK"],
+              description:
+                "OpenAI offers a suite of powerful AI tools including GPT models, DALL-E for image generation, embeddings for semantic search, and the Agents SDK for building autonomous AI applications.",
+            },
+            {
+              name: "Whisper",
+              url: "https://openai.com/research/whisper",
+              image:
+                "https://cdn.prod.website-files.com/614c82ed388d53640613982e/63eb5ebedd3a9a738e22a03f_open%20ai%20whisper.jpg",
+              category: "Speech Recognition",
+              status: "Free",
+              tags: ["Audio Transcription", "Multilingual", "Open Source"],
+              description:
+                "Whisper is an open-source speech recognition model from OpenAI that offers robust performance in noisy environments and supports transcription in multiple languages.",
+            },
+            {
               name: "DeepL",
               url: "https://www.deepl.com/",
               image:
@@ -416,88 +554,198 @@
                 "DeepL is an AI-based translation service known for its high-quality and accurate translations.",
             },
             {
-              id: 13,
               name: "Runway ML",
               url: "https://runwayml.com/",
               image:
                 "https://appsumo2-cdn.appsumo.com/media/selfsubmissions/images/46075782-bd2c-4596-a9e0-a038292fd0e3.png",
               category: "AI Creative Tools",
-              status: "Paid",
+              status: "Freemium",
               tags: ["AI", "Creative", "ML"],
               description:
                 "Runway ML is a creative AI tool for generating videos, images, and 3D models.",
             },
             {
-              id: 14,
               name: "Kling",
               url: "https://kling.ai/",
               image:
                 "https://blog.pintu.co.id/wp-content/uploads/2024/07/kling-ai.jpg",
               category: "LLM",
-              status: "Free",
+              status: "Freemium",
               tags: ["AI", "Kling"],
               description:
                 "Kling is an AI language model designed for efficient multilingual processing.",
             },
             {
-              id: 15,
               name: "Hailuo",
               url: "https://hailuo.ai/",
               image:
                 "https://logowik.com/content/uploads/images/hailuo-ai8415.logowik.com.webp",
               category: "LLM",
-              status: "Free",
+              status: "Paid",
               tags: ["AI", "Hailuo"],
               description:
                 "Hailuo AI is an advanced large language model focusing on high-efficiency natural language processing.",
             },
             {
-              id: 16,
               name: "Flux Black Forest",
               url: "https://flux.ai/",
               image:
                 "https://miro.medium.com/v2/resize:fit:1248/0*RYW4im9__K8h6lMb.png",
-              category: "AI",
+              category: "Image Generation",
               status: "Free",
-              tags: ["AI", "Flux"],
+              tags: ["AI", "Flux", "Image Generation"],
               description:
-                "Flux Black Forest is an AI-powered computational engine designed for complex problem-solving.",
+                "Flux Schnell is a free, high-speed AI image generation tool that creates high-quality visuals from text prompts.",
             },
             {
-              id: 17,
+              name: "Replicate",
+              url: "https://replicate.com/",
+              image:
+                "https://replicate.com/frontend-assets/og-image-y_bpW3_2.png",
+              category: "AI Platform",
+              status: "Paid",
+              tags: ["AI", "Replicate", "Model Deployment"],
+              description:
+                "Replicate is a cloud platform for running, fine-tuning, and deploying open-source AI models with simple API integration, featuring automatic scaling and pay-per-use pricing for various AI technologies.",
+            },
+            {
+              name: "Suno",
+              url: "https://suno.ai/",
+              image:
+                "https://www.trustedreviews.com/wp-content/uploads/sites/54/2024/03/Suno-AI.jpg",
+              category: "Music Generation",
+              status: "Freemium",
+              tags: ["AI", "Suno", "Music", "Audio"],
+              description:
+                "Suno is an AI-powered music creation platform that transforms text descriptions into complete songs with vocals, instruments, and lyrics, making music creation accessible to everyone regardless of musical background.",
+            },
+            {
+              name: "ElevenLabs",
+              url: "https://elevenlabs.io/",
+              image: "https://nationaltechnology.co.uk/images/ElevenLabs.jpg",
+              category: "Voice Generation",
+              status: "Freemium",
+              tags: ["AI", "ElevenLabs", "Voice", "Audio"],
+              description:
+                "ElevenLabs is an AI voice generation platform creating ultra-realistic speech with proper emotional expression in 32+ languages, offering API access for integration into various applications.",
+            },
+            {
+              name: "Gamma.app",
+              url: "https://gamma.app/",
+              image:
+                "https://i0.wp.com/aisuggested.com/wp-content/uploads/2024/05/1_akPGmAAxS69tnxTF8Ezc1w.webp?fit=1400%2C700&ssl=1",
+              category: "Presentation",
+              status: "Freemium",
+              tags: ["AI", "Gamma", "Presentation"],
+              description:
+                "Gamma.app is an AI-powered presentation tool that transforms text into visually stunning slides, offering features like automatic design, content generation, and export to PowerPoint for professional presentations.",
+            },
+            {
+              name: "Windsurf",
+              url: "https://windsurfai.org/",
+              image:
+                "https://exafunction.github.io/public/images/windsurf/windsurf-ide-thumbnail.jpg",
+              category: "IDE",
+              status: "Free",
+              tags: ["AI", "Windsurf", "Coding", "IDE"],
+              description:
+                "Windsurf is an AI-powered IDE developed by Codeium that combines copilot and agent capabilities, featuring Cascade for contextual awareness, multi-file editing, and command suggestions for a seamless coding experience.",
+            },
+            {
+              name: "Trae.ai",
+              url: "https://www.trae.ai/",
+              image: "https://lf-cdn.trae.ai/obj/trae-ai-us/og.jpeg",
+              category: "IDE",
+              status: "Free",
+              tags: ["AI", "Trae", "Coding", "IDE"],
+              description:
+                "Trae.ai is an adaptive AI IDE that transforms how you work, featuring advanced multimodal capabilities for understanding image uploads, streamlining collaboration, and boosting development efficiency.",
+            },
+            {
               name: "Cursor",
               url: "https://cursor.sh/",
               image:
                 "https://media.licdn.com/dms/image/v2/D5612AQGoTwf76ChmTw/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1728127423385?e=2147483647&v=beta&t=EhaLZIgZqB5Yue4jxDOZ2qA5InTzwjqzoH1MsM3lMaw",
               category: "AI Coding",
-              status: "Free",
+              status: "Freemium",
               tags: ["AI", "Coding", "Cursor"],
               description:
                 "Cursor is an AI-powered coding assistant designed to enhance software development productivity.",
             },
             {
-              id: 18,
               name: "Bolt",
               url: "https://bolt.new/",
               image:
                 "https://miro.medium.com/v2/resize:fit:1400/1*vbo04xVLorq_rvpeEDCaAg.jpeg",
               category: "LLM",
-              status: "Free",
+              status: "Freemium",
               tags: ["AI", "Bolt"],
               description:
                 "Bolt AI is a high-speed language model optimized for real-time interactions.",
             },
             {
-              id: 19,
               name: "V0",
               url: "https://v0.dev/",
               image:
                 "https://vercel.com/_next/image?url=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Fcontentful%2Fimage%2Fe5382hct74si%2F4ivWBf1RT18864X9FyViLh%2F6561b715a956ce6100af01f4399fa001%2F600x300__1_.png&w=1920&q=75",
               category: "AI Coding",
-              status: "Free",
+              status: "Freemium",
               tags: ["AI", "V0", "Coding"],
               description:
                 "V0 is an AI-powered no-code/low-code development platform for rapid prototyping.",
+            },
+            {
+              name: "Lovable.dev",
+              url: "https://lovable.dev/",
+              image: "https://lovable.dev/opengraph-image.png",
+              category: "AI Coding",
+              status: "Freemium",
+              tags: ["Web Development", "No-Code", "App Builder"],
+              description:
+                "Lovable.dev is an AI platform that generates working web applications from textual descriptions, featuring live rendering, image input handling, instant undo functionality, and one-click deployment.",
+            },
+            {
+              name: "Replit",
+              url: "https://replit.com/",
+              image:
+                "https://images.prismic.io/contrary-research/56e4af3b-4e2f-41d7-a579-1ff97be751b5_Replit+%281%29.png?auto=compress,format",
+              category: "AI Coding",
+              status: "Freemium",
+              tags: ["Cloud IDE", "Collaboration", "Deployment"],
+              description:
+                "Replit is an AI-powered coding platform that enables real-time collaboration, supports over 50 programming languages, and allows for instant deployment directly from the browser.",
+            },
+            {
+              name: "Tavily",
+              url: "https://tavily.com/",
+              image: "https://tavily.com/opengraph-image.png",
+              category: "Search Engine",
+              status: "Freemium",
+              tags: ["AI Search", "Research", "API"],
+              description:
+                "Tavily is a search engine tailored for AI agents, delivering real-time, accurate results, intelligent query suggestions, and in-depth research capabilities through a developer-friendly API.",
+            },
+            {
+              name: "LangChain",
+              url: "https://www.langchain.com/",
+              image:
+                "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/blogs/22606/images/b481620-88b6-27ee-4ecf-af140aa0_0_BKOvjpzn6SPKs81L.png",
+              category: "AI Framework",
+              status: "Free",
+              tags: ["LLM Integration", "Agents", "Orchestration"],
+              description:
+                "LangChain is an open-source framework for developing applications powered by language models, providing tools for chaining LLMs with other components to build complex AI applications.",
+            },
+            {
+              name: "LangSmith",
+              url: "https://www.langchain.com/langsmith",
+              image:
+                "https://business.georgemposi.com/wp-content/uploads/2023/09/ls-1024x576.webp",
+              category: "AI Development",
+              status: "Freemium",
+              tags: ["Debugging", "Monitoring", "Evaluation"],
+              description:
+                "LangSmith is a platform for debugging, testing, evaluating, and monitoring LLM applications, offering tools to trace, version control, and collaborate on prompt engineering.",
             },
           ],
           filteredTools: [],
