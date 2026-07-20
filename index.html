@@ -111,14 +111,6 @@
     <link rel="stylesheet" href="assets/glightbox/css/glightbox.min.css" />
     <link href="assets/boxicons/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
-    <style>
-      #mainNav .nav-link, #mainNav .nav-link i { background: #44475a !important; }
-      #mainNav .nav-link i { margin-right: 6px; }
-      @media (max-width: 991px) {
-        #mainNav .navbar-collapse { background: #44475a; border-radius: 8px; padding: 8px; margin-top: 4px; }
-        #mainNav .nav-link, #mainNav .nav-link i { background: none !important; }
-      }
-    </style>
 
     <!-- Meta Robots -->
     <meta name="robots" content="index, follow" />
@@ -206,23 +198,37 @@
       /></a>
     </div>
 
-    <nav class="navbar navbar-expand-lg" id="mainNav">
+    <nav class="navbar">
       <div class="container-fluid">
         <a class="navbar-brand text-white p-2" href="/">Algonacci</a>
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <i class="fas fa-bars text-white fs-4"></i>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-          <div class="navbar-nav">
-            <a class="nav-link text-white" href="https://github.com/algonacci" target="_blank"><i class="fab fa-github"></i><span class="d-lg-none">GitHub</span></a>
-            <a class="nav-link text-white" href="https://twitter.com/algonacci" target="_blank"><i class="fab fa-twitter"></i><span class="d-lg-none">Twitter</span></a>
-            <a class="nav-link text-white" href="blog.html"><i class="fa-brands fa-blogger-b"></i><span class="d-lg-none">Blog</span></a>
-            <a class="nav-link text-white" href="blogwalking.html"><i class="fa-solid fa-user-group"></i><span class="d-lg-none">Blogwalking</span></a>
-            <a class="nav-link text-white" href="guest-book.html"><i class="fa-solid fa-address-book"></i><span class="d-lg-none">Guest Book</span></a>
-            <a class="nav-link text-white" href="ai-tools.html"><i class="fa-solid fa-robot"></i><span class="d-lg-none">AI Tools</span></a>
-            <a class="nav-link text-white" href="https://algonacci.github.io/presentasi/" target="_blank"><i class="fa-solid fa-chalkboard-user"></i><span class="d-lg-none">Presentation</span></a>
-            <a class="nav-link text-white" href="https://algonacci.github.io/workout/" target="_blank"><i class="fa-solid fa-person-running"></i><span class="d-lg-none">Workout</span></a>
-          </div>
+
+        <!-- Desktop: icon only -->
+        <div class="d-none d-lg-flex">
+          <a href="https://github.com/algonacci" target="_blank"><i class="fab fa-github text-white px-2"></i></a>
+          <a href="https://twitter.com/algonacci" target="_blank"><i class="fab fa-twitter text-white px-2"></i></a>
+          <a href="blog.html"><i class="fa-brands fa-blogger-b text-white px-2"></i></a>
+          <a href="blogwalking.html"><i class="fa-solid fa-user-group text-white px-2"></i></a>
+          <a href="guest-book.html"><i class="fa-solid fa-address-book text-white px-2"></i></a>
+          <a href="ai-tools.html"><i class="fa-solid fa-robot text-white px-2"></i></a>
+          <a href="https://algonacci.github.io/presentasi/" target="_blank"><i class="fa-solid fa-chalkboard-user text-white px-2"></i></a>
+          <a href="https://algonacci.github.io/workout/" target="_blank"><i class="fa-solid fa-person-running text-white px-2"></i></a>
+        </div>
+
+        <!-- Mobile: hamburger + icon + text -->
+        <div class="d-lg-none dropdown">
+          <button class="btn border-0 p-0" type="button" data-bs-toggle="dropdown">
+            <i class="fas fa-bars text-white fs-4"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark mt-2" style="background:#44475a">
+            <li><a class="dropdown-item text-white" href="https://github.com/algonacci" target="_blank"><i class="fab fa-github me-2"></i>GitHub</a></li>
+            <li><a class="dropdown-item text-white" href="https://twitter.com/algonacci" target="_blank"><i class="fab fa-twitter me-2"></i>Twitter</a></li>
+            <li><a class="dropdown-item text-white" href="blog.html"><i class="fa-brands fa-blogger-b me-2"></i>Blog</a></li>
+            <li><a class="dropdown-item text-white" href="blogwalking.html"><i class="fa-solid fa-user-group me-2"></i>Blogwalking</a></li>
+            <li><a class="dropdown-item text-white" href="guest-book.html"><i class="fa-solid fa-address-book me-2"></i>Guest Book</a></li>
+            <li><a class="dropdown-item text-white" href="ai-tools.html"><i class="fa-solid fa-robot me-2"></i>AI Tools</a></li>
+            <li><a class="dropdown-item text-white" href="https://algonacci.github.io/presentasi/" target="_blank"><i class="fa-solid fa-chalkboard-user me-2"></i>Presentation</a></li>
+            <li><a class="dropdown-item text-white" href="https://algonacci.github.io/workout/" target="_blank"><i class="fa-solid fa-person-running me-2"></i>Workout</a></li>
+          </ul>
         </div>
       </div>
     </nav>
