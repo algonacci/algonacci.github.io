@@ -112,9 +112,11 @@
     <link href="assets/boxicons/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
     <style>
-      .navbar .nav-link, .navbar .nav-link i { background: #44475a !important; }
+      .navbar .nav-link { background: none !important; }
       .nav-link i { margin-right: 6px; }
-      .navbar-collapse { background: #44475a !important; }
+      @media (max-width: 991px) {
+        .navbar-collapse { background: #44475a; border-radius: 8px; padding: 8px; margin-top: 4px; }
+      }
     </style>
 
     <!-- Meta Robots -->
