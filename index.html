@@ -112,6 +112,20 @@
     <link href="assets/boxicons/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
 
+    <style>
+      .nav-links { display: flex; }
+      .nav-toggle { display: none; }
+      @media (max-width: 768px) {
+        .nav-toggle { display: block; background: none; border: none; cursor: pointer; }
+        .nav-toggle i { font-size: 1.4em; }
+        .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; right: 12px; background: #44475a; border-radius: 8px; padding: 8px 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .nav-links a { padding: 8px 16px !important; }
+        .nav-links a i { padding: 0 !important; }
+        .nav-links.show { display: flex; }
+        .navbar { position: relative; }
+      }
+    </style>
+
     <!-- Meta Robots -->
     <meta name="robots" content="index, follow" />
 
@@ -201,7 +215,10 @@
     <nav class="navbar">
       <div class="container-fluid">
         <a class="navbar-brand text-white p-2" href="/">Algonacci</a>
-        <div class="d-flex flex-wrap justify-content-end" style="gap: 2px">
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">
+          <i class="fas fa-bars text-white"></i>
+        </button>
+        <div class="nav-links">
           <a href="https://github.com/algonacci" target="_blank"
             ><i class="fab fa-github text-white px-2"></i
           ></a>
