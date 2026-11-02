@@ -84,101 +84,127 @@
                     <article>
                         <p class="text-white">
                             Minggu, 1 November 2026 kemarin kami berempat, Razan, Hanif, Samu, dan saya sendiri
-                            (Eric), kebagian pegang jaringan di GDG DevFest Jakarta 2026. Selesai acara, ada satu
-                            pertanyaan yang muncul dari beberapa orang dan juga dari kami sendiri:
+                            (Eric), kebagian pegang jaringan di GDG DevFest Jakarta 2026 di TMII. Selesai acara, ada
+                            satu pertanyaan yang muncul dari banyak orang dan juga dari kami sendiri:
                             <br>
                             <br>
-                            "Wi-Fi kemarin sebenarnya kenapa sih?"
+                            "Wi-Fi workshop kemarin sebenarnya kenapa sih?"
                             <br>
                             <br>
-                            Jadi tulisan ini adalah postmortem kami dari hari itu. Apa saja yang rusak, apa saja yang
-                            ternyata jalan dengan baik, dan apa yang bakal kami lakukan beda di event berikutnya.
-                            Postmortem ini <i>blameless</i> ya, tujuannya belajar, bukan nyari siapa yang salah.
+                            Jawaban singkatnya: internetnya aman, router-nya aman, yang kalah itu udaranya. Jawaban
+                            panjangnya ada di tulisan ini. Kami susun dari grup WhatsApp tim, data monitoring, dan log
+                            router. Postmortem ini <i>blameless</i> ya, tujuannya belajar, bukan nyari siapa yang
+                            salah.
                             <br>
                             <br>
                             Selamat membaca!
                         </p>
 
-                        <!-- TODO: tambahin jumlah peserta, venue, ukuran tim kalau mau -->
-
                         <h4 class="text-white mt-5">Background</h4>
                         <p class="text-white">
-                            Setup jaringan hari itu kurang lebih seperti ini:
+                            Persiapannya mulai dari 18 Oktober, dua minggu sebelum hari H. Dari riset kecil-kecilan,
+                            estimasi peserta ada di sekitar 2.000 orang. Prioritas utamanya jelas dari awal: Wi-Fi yang
+                            kuat untuk <b>200 peserta workshop per sesi</b>, dengan 4 sesi sepanjang hari.
+                            <br>
+                            <br>
+                            Setup akhirnya kurang lebih seperti ini:
                         </p>
                         <ul class="text-white">
+                            <li>Internet dari Telkom Astinet dengan port 1 Gbps.</li>
                             <li>
-                                Core router pakai MikroTik CCR2004-16G-2S+ dengan RouterOS 7.12.1, internetnya dari
-                                Telkom dengan port 1 Gbps.
+                                Core router MikroTik CCR2004-16G-2S+ dengan RouterOS 7.12.1.
                             </li>
                             <li>
-                                Wi-Fi pakai Ruijie, ada 7 access point dan 3 switch, dikelola lewat Ruijie Cloud.
+                                Wi-Fi pakai Ruijie, 7 access point dan 3 switch, dipasang dan dikelola bareng tim
+                                vendor lewat Ruijie Cloud.
                             </li>
                             <li>
-                                Jaringannya dipecah per VLAN sesuai kebutuhan: Attendee, Workshop, Stage, Crew,
-                                Social Network, Registration, dan Merchandise.
+                                Jaringan dipecah per VLAN: Attendee, Workshop, Stage, Crew, Social Network,
+                                Registration, dan Merchandise. Masing-masing punya jatah bandwidth, misalnya Workshop
+                                dijamin 300 Mbps dan maksimal 700 Mbps.
                             </li>
                             <li>
-                                Attendee masuk lewat hotspot dengan voucher. Satu voucher bisa dipakai bareng-bareng,
-                                kecepatannya 20 Mbps per orang dengan burst sampai 850 Mbps. Subnet-nya
-                                <code>/20</code>, jadi ada 4.093 alamat yang bisa dibagikan.
-                            </li>
-                            <li>
-                                Speaker punya voucher sendiri dengan jatah 100 Mbps.
+                                Attendee masuk lewat hotspot dengan voucher, 20 Mbps per orang, subnet <code>/20</code>
+                                (4.093 alamat). Speaker punya voucher sendiri dengan jatah 100 Mbps.
                             </li>
                         </ul>
+                        <p class="text-white">
+                            Ada satu kalimat dari diskusi hari pertama yang ternyata jadi ramalan:
+                        </p>
+                        <blockquote>
+                            <cite>"Jangan ada yang keluarkan sinyal Wi-Fi satupun demi kestabilan Wi-Fi bersama."</cite>
+                        </blockquote>
+                        <p class="text-white">
+                            Ingat-ingat kalimat ini ya, nanti dia balik lagi😅
+                        </p>
 
                         <!--
                         <div class="row">
-                            <img src="/img/blog/06/1.png" alt="Topologi jaringan DevFest Jakarta 2026" class="d-flex mx-auto"
+                            <img src="/img/blog/06/1.png" alt="Network plan GDG DevFest Jakarta 2026" class="d-flex mx-auto"
                                 style="  border: 2px solid #bd93f9;" />
                         </div>
                         <br />
                         -->
 
+                        <h4 class="text-white mt-5">H-1: Sampai Jam 2 Pagi</h4>
+                        <p class="text-white">
+                            Sabtu, 31 Oktober, tim mulai berdatangan ke TMII sekitar jam 3 sore, disambut hujan. Dari
+                            sini daftar "belum"-nya panjang:
+                        </p>
+                        <ul class="text-white">
+                            <li>
+                                Kabel Telkom sudah ada di atas FOH, tapi <b>listrik di FOH belum ada</b>. Baru nyala
+                                sekitar jam 7 malam.
+                            </li>
+                            <li>
+                                Jam 9 malam internetnya masih belum sesuai. Kata tim di lapangan, Telkom masih
+                                "nunggu dari upstream". Kami cuma bisa colek AM-nya sambil kirim stiker nangis 😭
+                            </li>
+                            <li>
+                                Lewat tengah malam, AP masih dikonfigurasi. Halaman login hotspot dan voucher baru
+                                disiapkan sekitar jam 1 pagi.
+                            </li>
+                            <li>
+                                Jam 1.30 akses remote via Tailscale berhasil, jadi router dan laptop monitoring bisa
+                                dipantau dari hotel.
+                            </li>
+                            <li>
+                                Jam 2.30 baru dapat akses ke Ruijie Cloud. Awalnya cuma read-only, lalu dikasih full
+                                dengan janji "kalau ada perubahan, woro-woro di grup".
+                            </li>
+                            <li>
+                                Jam 3 pagi rencana bandwidth per SSID difinalisasi, dan diputuskan subnet attendee
+                                pakai <code>/20</code> karena peserta bisa connect dari laptop sekaligus HP.
+                            </li>
+                        </ul>
+                        <p class="text-white">
+                            Monitoring-nya sendiri jalan di laptop saya yang <b>ditinggal di venue</b> semalaman.
+                            Sambil pulang saya sempat nyeletuk, "harusnya bawa homelab atau STB"🤣
+                        </p>
+
                         <h4 class="text-white mt-5">Monitoring</h4>
                         <p class="text-white">
-                            Prinsip kami sederhana, kalau mau debugging di tengah event, kita harus punya data. Kalau nggak ada data, yang ada cuma nebak-nebak.
-                            <br>
-                            <br>
-                            Stack-nya kami jalankan pakai rootless Podman di laptop ops:
+                            Prinsip kami sederhana, kalau mau debugging di tengah event, kita harus punya data. Kalau
+                            nggak ada data, yang ada cuma nebak-nebak. Stack-nya jalan pakai rootless Podman:
                         </p>
                         <ul class="text-white">
+                            <li><b>mktxp</b> sebagai exporter yang narik metric dari MikroTik.</li>
+                            <li><b>VictoriaMetrics</b> buat nyimpan metric-nya.</li>
                             <li>
-                                <b>mktxp</b> sebagai exporter yang narik metric dari MikroTik.
+                                <b>Perses</b> buat dashboard-nya, akhirnya jadi 45 panel di 8 section.
                             </li>
                             <li>
-                                <b>VictoriaMetrics</b> buat nyimpan metric-nya. Awalnya Prometheus, lalu kami ganti.
-                            </li>
-                            <li>
-                                <b>Perses</b> buat dashboard-nya. Akhirnya jadi 45 panel di 8 section, dengan section
-                                paling atas khusus <i>Live Operations Overview</i>.
-                            </li>
-                            <li>
-                                Dashboard-nya bisa diakses tim lewat Cloudflare Tunnel, jadi nggak perlu buka port
-                                apa-apa ke luar.
+                                Collector Ruijie buatan sendiri pakai Playwright, karena akun yang kami dapat nggak bisa
+                                pakai API. Sayangnya data client dan RSSI tetap nggak bisa diambil, jadi panelnya kami
+                                tandai "butuh akses owner", bukan diisi angka asal-asalan.
                             </li>
                         </ul>
                         <p class="text-white">
-                            Yang agak tricky itu Ruijie. Akun yang kami dapat cuma akun delegasi, dan API-nya nggak
-                            bisa dipakai. Akhirnya kami bikin collector sendiri pakai Playwright yang login ke Ruijie
-                            Cloud, menjaga sesinya tetap hidup, lalu mengeluarkan data inventory AP dan switch dalam
-                            format Prometheus. Sayangnya akun delegasi ini ditolak waktu mau ambil data client dan
-                            RSSI, jadi panel itu kami tandai "butuh akses owner", bukan diisi angka asal-asalan.
-                            <br>
-                            <br>
-                            Ada dua kejadian kecil yang lucu juga waktu setup:
+                            Pagi-pagi jam 8.31, dashboard yang tadinya cuma bisa dibuka di jaringan lokal tiba-tiba
+                            sudah ada di domain publik lewat Cloudflare Tunnel. "Gotta go fast" katanya. Reaksi saya
+                            waktu itu cuma "WKWKWK ANJRIT, di laptop gue itu?" Hari itu memang playground dulu, lain
+                            kali bisa lebih profesional.
                         </p>
-                        <ul class="text-white">
-                            <li>
-                                Speedtest dari laptop ops mentok di ~94 Mbps. Kami sempat curiga ke router, ternyata
-                                kartu jaringan laptopnya turun dari 1 Gbps ke 100 Mbps gara-gara kabel. Router-nya
-                                nggak salah apa-apa😅
-                            </li>
-                            <li>
-                                Timezone laptop ternyata masih <code>America/New_York</code>, jadi jam di dashboard
-                                nggak nyambung sama jam di router. Langsung kami ganti ke <code>Asia/Jakarta</code>.
-                            </li>
-                        </ul>
 
                         <!--
                         <div class="row">
@@ -188,9 +214,9 @@
                         <br />
                         -->
 
-                        <h4 class="text-white mt-5">Timeline</h4>
+                        <h4 class="text-white mt-5">Timeline Hari H</h4>
                         <p class="text-white">
-                            Berikut kronologi hari H, semua jam dalam WIB:
+                            Semua jam dalam WIB, Minggu 1 November:
                         </p>
                         <div class="table-responsive">
                             <table class="table table-dark table-sm">
@@ -198,29 +224,32 @@
                                     <tr><th>Jam</th><th>Kejadian</th></tr>
                                 </thead>
                                 <tbody>
-                                    <tr><td>03:05</td><td>Monitoring mulai merekam data</td></tr>
                                     <tr><td>06:13</td><td>Router reboot, sebelum pintu dibuka</td></tr>
-                                    <tr><td>08:06</td><td>Monitoring sempat bolong 4 menit karena port laptop ops putus</td></tr>
-                                    <tr><td>10:17</td><td>Puncak trafik internet: 281 Mbps download, 300 Mbps upload</td></tr>
-                                    <tr><td>~10:40</td><td>Keluhan login hotspot mulai banyak, mulai beresin hotspot</td></tr>
-                                    <tr><td>10:45</td><td>Puncak 114 user login hotspot</td></tr>
-                                    <tr><td>10:51</td><td>Burst time diubah, attendee di-disconnect supaya setting baru kepakai</td></tr>
-                                    <tr><td>10:56</td><td>Tambah login PAP, naikin limit DNS</td></tr>
-                                    <tr><td>11:07</td><td>Tambah login MAC-cookie</td></tr>
-                                    <tr><td>11:05–11:50</td><td>Sekitar 140 device di-login-kan manual dari router</td></tr>
-                                    <tr><td>11:14–11:35</td><td>Ada perubahan NAT, DNS, dan queue dari admin lain</td></tr>
-                                    <tr><td>~11:45</td><td>Jaringan Social Network nggak dapat IP</td></tr>
-                                    <tr><td>~11:50</td><td>VLAN Merchandise dibenerin, langsung jalan</td></tr>
-                                    <tr><td>11:52</td><td>Puncak 434 device attendee terhubung</td></tr>
-                                    <tr><td>12:31</td><td>Puncak 15.788 koneksi di router</td></tr>
-                                    <tr><td>13:03</td><td>Pool IP Crew terisi 75%</td></tr>
+                                    <tr><td>07:11</td><td>Ketahuan SSID voucher tertukar. SSID Ruijie pakai password langsung connect, nggak lewat voucher</td></tr>
+                                    <tr><td>07:25</td><td>Dibuat 4 voucher workshop, satu per sesi, masing-masing bisa dipakai bareng-bareng</td></tr>
+                                    <tr><td>08:11</td><td>SSID Workshop dibuka tanpa password, khusus area workshop</td></tr>
+                                    <tr><td>08:49</td><td>Voucher speaker dibuat, 100 Mbps, maksimal 50 perangkat</td></tr>
+                                    <tr><td>09:44</td><td>171 device terhubung</td></tr>
+                                    <tr><td>10:15</td><td>Sinyal di belakang workshop lemah. Stok AP habis, akhirnya AP Merchandise digeser ke workshop</td></tr>
+                                    <tr><td>10:17</td><td>Puncak trafik internet saat workshop mulai, sekitar 745 Mbps gabungan</td></tr>
+                                    <tr><td>10:31</td><td>Ketemu Wi-Fi dari ONT Telkom dan hotspot-hotspot tersembunyi yang masih nyala</td></tr>
+                                    <tr><td>10:35</td><td>Laporan halaman login nggak muncul di Microsoft Edge</td></tr>
+                                    <tr><td>10:40</td><td>Workshop mulai. 347 device. Sayap kanan workshop nggak dapat sinyal</td></tr>
+                                    <tr><td>10:40–11:50</td><td>Hotspot dibenahi di sisi router, sekitar 140 device di-login-kan manual</td></tr>
+                                    <tr><td>11:26</td><td>Optimasi otomatis lewat aplikasi Ruijie dijalankan</td></tr>
+                                    <tr><td>11:45</td><td>Device Apple dan laptop bermasalah di channel 5 GHz bawah</td></tr>
+                                    <tr><td>11:53</td><td>Channel AP berubah-ubah sendiri. Channel dikunci manual, lebar 20 MHz, DFS dimatikan</td></tr>
+                                    <tr><td>12:12</td><td>Mulai crimping kabel LAN buat yang laptopnya punya port</td></tr>
+                                    <tr><td>12:14</td><td><b>Ketemu video transmitter wireless di area workshop</b></td></tr>
+                                    <tr><td>12:58</td><td>Ternyata banyak laptop peserta yang nggak punya port LAN</td></tr>
+                                    <tr><td>13:17</td><td>Video transmitter dimatikan</td></tr>
+                                    <tr><td>13:58</td><td>Masih bottleneck, AP nggak sanggup ngangkat</td></tr>
+                                    <tr><td>14:12</td><td>Posisi AP dipindah</td></tr>
+                                    <tr><td>15:43</td><td>Client isolation dicoba, nggak ada perubahan</td></tr>
+                                    <tr><td>15:52</td><td>Speedtest di workshop 5,4 Mbps. Wi-Fi crew di stage ikut kena</td></tr>
                                 </tbody>
                             </table>
                         </div>
-                        <p class="text-white">
-                            Kalau dilihat, jam paling sibuk itu antara 10:00 sampai 12:30. Puncak user, puncak device,
-                            puncak trafik, dan puncak masalah semuanya numpuk di situ.
-                        </p>
 
                         <h4 class="text-white mt-5">By the Numbers</h4>
                         <ul class="text-white">
@@ -228,270 +257,282 @@
                                 Total internet sehari: <b>230,8 GB download</b> dan <b>146,1 GB upload</b>.
                             </li>
                             <li>
-                                Puncaknya 281 Mbps download dan 300 Mbps upload (rata-rata 2 menit), kira-kira cuma
-                                30% dari kapasitas port. Kalau dihitung per 1 menit, puncaknya sempat 437 Mbps download
-                                dan 516 Mbps upload.
+                                Puncak per 1 menit: 437 Mbps download (09:59) dan 516 Mbps upload (10:17). Kalau
+                                dirata-rata per 2 menit, puncaknya 281 / 300 Mbps.
                             </li>
+                            <li>Internet putus: <b>0 kali</b>.</li>
+                            <li>CPU router rata-rata 4%, paling tinggi 35%.</li>
                             <li>
-                                Internet putus: <b>0 kali</b>.
-                            </li>
-                            <li>
-                                CPU router rata-rata 4%, paling tinggi 35%. RAM masih lega, suhu CPU 55–61 °C.
-                            </li>
-                            <li>
-                                Attendee: puncak 114 user login dan 434 device dapat IP. Itu baru 10,6% dari
+                                Attendee: puncak 114 user login hotspot dan 434 device dapat IP, baru 10,6% dari
                                 kapasitas subnet.
                             </li>
-                            <li>
-                                Semua AP dan switch Ruijie online terus selama dimonitor.
-                            </li>
+                            <li>Semua AP dan switch Ruijie online terus selama dimonitor.</li>
                         </ul>
                         <p class="text-white">
-                            Nah, yang menarik itu pemakaian per jaringan. Coba tebak siapa yang paling boros?
+                            Jadi dari kacamata router, harinya kelihatan sehat-sehat saja. Padahal di ruang workshop,
+                            speedtest-nya cuma dapat 5,4 Mbps. Di sinilah pelajaran terbesarnya.
+                            <br>
+                            <br>
+                            Oh iya, coba tebak jaringan siapa yang paling boros? Crew, <b>94,8 GB</b>. Hampir 3x lipat
+                            dari seluruh attendee digabung *HAHAHA, kami juga termasuk di dalamnya sih 😄
                         </p>
-                        <ul class="text-white">
-                            <li>Crew: <b>94,8 GB</b></li>
-                            <li>Attendee: 33 GB</li>
-                            <li>Stage: 15,9 GB</li>
-                            <li>Registration: 4,1 GB</li>
-                            <li>Social Network: 1,26 GB</li>
-                            <li>Workshop: 0,28 GB</li>
-                            <li>Merchandise: 0,07 GB</li>
-                        </ul>
-                        <p class="text-white">
-                            Yap, crew-nya sendiri. Hampir 3x lipat dari seluruh attendee digabung *HAHAHA, kami juga
-                            termasuk di dalamnya sih 😄
-                        </p>
+
+                        <!--
+                        <div class="row">
+                            <img src="/img/blog/06/3.png" alt="Puncak bandwidth WAN" class="d-flex mx-auto"
+                                style="  border: 2px solid #bd93f9;" />
+                        </div>
+                        <br />
+                        -->
 
                         <h4 class="text-white mt-5">What Went Wrong</h4>
 
-                        <h5 class="text-white mt-4">1. Login hotspot gagal</h5>
+                        <h5 class="text-white mt-4">1. Workshop kalah di udara</h5>
                         <p class="text-white">
-                            Keluhan pertama yang paling banyak. Ternyata bukan karena router-nya kewalahan, CPU waktu
-                            itu cuma 6%. Penyebabnya ada tiga:
+                            Ini insiden utamanya. Router dan internet aman, tapi peserta workshop nggak bisa kerja.
+                            Penyebabnya numpuk:
                         </p>
                         <ul class="text-white">
                             <li>
-                                Halaman login yang muncul otomatis di HP itu nggak menjalankan JavaScript, padahal
-                                metode login CHAP butuh JS. Hasilnya error <code>password is not chap encrypted</code>.
-                                Solusinya tambah metode login <code>http-pap</code>.
+                                <b>AP kurang.</b> Sinyal di belakang dan di sayap kanan workshop lemah. Mau nambah AP,
+                                stoknya habis: bawa lebih 2, satu dipakai Merchandise, satu lagi error. Akhirnya AP
+                                Merchandise yang digeser.
                             </li>
                             <li>
-                                Limit DNS bawaan MikroTik cuma 100 query bersamaan. Itu kekecilan buat 200-an HP yang
+                                <b>Banyak pemancar lain.</b> Wi-Fi dari ONT Telkom masih nyala, ditambah hotspot HP yang
+                                disembunyikan.
+                            </li>
+                            <li>
+                                <b>Channel berubah-ubah sendiri.</b> Channel AP masih auto, lalu optimasi otomatis
+                                dijalankan. Hasilnya channel pindah-pindah di tengah sesi, client putus-sambung. Setelah
+                                dikunci manual di 20 MHz dengan DFS dimatikan, mulai lebih tenang.
+                            </li>
+                            <li>
+                                <b>Kompatibilitas client.</b> Device Apple rewel di channel 5 GHz bawah (UNII-1), dan
+                                sebagian laptop nggak bisa pakai channel 5 GHz tertentu yang bisa dipakai HP Android.
+                            </li>
+                        </ul>
+
+                        <h5 class="text-white mt-4">2. Plot twist: video transmitter</h5>
+                        <p class="text-white">
+                            Jam 12.14, Hanif foto sebuah alat di dekat meja FOH workshop, dengan 4 antena berdiri di
+                            atas tiang. Itu video transmitter wireless milik tim dokumentasi, buat kirim gambar kamera
+                            tanpa kabel. Dicek spesifikasinya: <b>tri-band 2,4 GHz, 5 GHz (termasuk DFS), dan 6
+                            GHz</b>. Persis di frekuensi yang sama dengan Wi-Fi kami, dan posisinya persis di ruangan
+                            yang paling butuh Wi-Fi.
+                            <br>
+                            <br>
+                            Di laptop peserta, sinyal Wi-Fi-nya sebenarnya bagus (RSSI -56 dBm), tapi noise-nya -65 dBm.
+                            Jaraknya cuma 9 dB, akibatnya Tx Rate cuma 13 Mbps di MCS 1, padahal itu 802.11ac. Ingat
+                            kalimat "jangan ada yang keluarkan sinyal Wi-Fi satupun" tadi? Nah 😅
+                            <br>
+                            <br>
+                            Transmitter-nya nggak bisa langsung dimatikan, karena dipakai buat kamera. Setelah
+                            dinegosiasikan dengan opsi kamera cukup merekam saja, jam 13.17 transmitter dimatikan.
+                            Tapi masalahnya belum selesai. Jam 13.58 masih bottleneck. Burst yang kami set 500
+                            Mbps nggak pernah tercapai karena AP-nya memang nggak sanggup ngangkat. Jam 15.52 speedtest
+                            di workshop masih 5,4 Mbps.
+                        </p>
+
+                        <!--
+                        <div class="row">
+                            <img src="/img/blog/06/4.png" alt="Video transmitter di area workshop" class="d-flex mx-auto"
+                                style="  border: 2px solid #bd93f9;" />
+                        </div>
+                        <br />
+                        -->
+
+                        <h5 class="text-white mt-4">3. Rencana cadangan pakai LAN</h5>
+                        <p class="text-white">
+                            Kabel to the rescue! Jam 12-an kami mulai crimping kabel LAN. Masalahnya, banyak laptop
+                            peserta zaman sekarang nggak punya port LAN, dan kami nggak bawa USB LAN adapter
+                            sebanyak itu. Padahal ide sediain adapter ini sudah sempat dibahas tanggal 21 Oktober.
+                        </p>
+
+                        <h5 class="text-white mt-4">4. Voucher dan SSID</h5>
+                        <ul class="text-white">
+                            <li>
+                                Pagi hari ketahuan SSID-nya tertukar. SSID Ruijie yang pakai password langsung
+                                connect ke internet tanpa lewat voucher. Akhirnya disederhanakan jadi 4 voucher
+                                workshop, satu per sesi, dan SSID dibuka tanpa password.
+                            </li>
+                            <li>
+                                Kami juga sempat bingung mekanisme bagi vouchernya ke peserta, sampai muncul usul
+                                "request ke registrasi aja, sekalian jadi help desk".
+                            </li>
+                        </ul>
+
+                        <h5 class="text-white mt-4">5. Hotspot</h5>
+                        <p class="text-white">
+                            Di sisi router, hotspot juga punya masalah sendiri, dan ini dibenahi antara 10.40 sampai
+                            11.50:
+                        </p>
+                        <ul class="text-white">
+                            <li>
+                                Halaman login yang muncul otomatis di HP nggak menjalankan JavaScript, padahal CHAP
+                                butuh JS. Solusinya tambah metode login <code>http-pap</code>.
+                            </li>
+                            <li>
+                                Limit DNS bawaan MikroTik cuma 100 query bersamaan, kekecilan buat ratusan HP yang
                                 join barengan. Kami naikkan jadi 1000.
                             </li>
                             <li>
-                                Voucher salah ketik. Angka 0 jadi huruf O, dan sejenisnya. Ini bukan masalah router,
-                                tapi pelajaran buat bikin voucher yang susah salah ketik.
+                                <code>mac-cookie</code> belum aktif, jadi device yang putus nggak bisa login otomatis.
+                                Sekitar 140 device akhirnya di-login-kan manual dari router.
+                            </li>
+                            <li>
+                                Laptop Windows dan Edge sering nggak memunculkan halaman login, karena portal kami pakai
+                                <i>meta refresh</i>, bukan HTTP 302, dan nggak ada sertifikat TLS. Solusi sementaranya
+                                buka <code>http://neverssl.com</code>.
+                            </li>
+                            <li>
+                                Burst time sempat diubah karena dikira itu lamanya burst. Ternyata burst time itu
+                                <i>window</i> rata-rata. Dari idle, burst 850 Mbps cuma tahan sekitar
+                                <code>15M × 300s ÷ 850M ≈ 5 detik</code>.
                             </li>
                         </ul>
 
-                        <h5 class="text-white mt-4">2. Salah paham soal burst time</h5>
+                        <h5 class="text-white mt-4">6. Banyak tangan di config yang sama</h5>
                         <p class="text-white">
-                            Burst time sempat diubah dari 10 detik ke 5 menit karena dikira itu lamanya burst. Ternyata
-                            burst time itu <i>window</i> rata-rata, bukan durasi burst. Dari kondisi idle, burst
-                            maksimalnya kurang lebih:
-                            <br>
-                            <br>
-                            <code>threshold × burst-time ÷ burst-limit = 15M × 300s ÷ 850M ≈ 5 detik</code>
-                            <br>
-                            <br>
-                            Ditambah lagi, setting profile cuma berlaku setelah user login ulang. Jadi attendee yang
-                            sedang online harus di-disconnect dulu, dua ronde, 104 lalu 32 sesi.
-                        </p>
-
-                        <h5 class="text-white mt-4">3. Dua admin, satu config</h5>
-                        <p class="text-white">
-                            Ini yang bikin kami ketawa miris. Waktu burst time diubah ke 5 menit, ada sesi admin lain
-                            yang mengubah profile yang sama ke <code>60/60</code>, cuma <b>2 detik</b> sebelum
-                            disconnect massal. Akhirnya harus dibalikin lagi. Nggak ada yang salah sebenarnya, cuma
-                            nggak ada koordinasi siapa pegang apa.
-                        </p>
-
-                        <h5 class="text-white mt-4">4. "Connected, tapi nggak ada internet"</h5>
-                        <p class="text-white">
-                            Device yang sempat putus nggak otomatis login lagi, karena login-nya cuma tersimpan di
-                            cookie browser. Metode <code>mac-cookie</code> belum diaktifkan. Device baru bisa login
-                            lagi kalau usernya buka situs <code>http://</code>, yang hari gini jarang banget. Dari 38
-                            device yang nyangkut, 24 kami login-kan manual dari router, sisanya balik sendiri.
-                        </p>
-
-                        <h5 class="text-white mt-4">5. Laptop Windows nggak muncul halaman login</h5>
-                        <p class="text-white">
-                            Ada sekitar 25 laptop yang connect ke Wi-Fi tapi nggak pernah login. Alasannya:
+                            Router dan controller Ruijie dipegang beberapa orang dari beberapa tim sekaligus. Akibatnya
+                            ada perubahan yang saling tabrakan:
                         </p>
                         <ul class="text-white">
-                            <li>Windows nggak selalu munculin popup halaman login.</li>
-                            <li>User langsung buka situs HTTPS, yang nggak bisa di-redirect oleh hotspot.</li>
                             <li>
-                                Halaman portal kami pakai <i>meta refresh</i>, bukan HTTP 302, dan nggak punya
-                                sertifikat TLS. Ini kurang akur dengan deteksi captive portal di Windows dan Edge.
+                                Profile hotspot diubah oleh dua sesi berbeda, selisih <b>2 detik</b>, sebelum
+                                disconnect massal. Harus dibalikin lagi.
+                            </li>
+                            <li>
+                                Ada rule NAT yang membelokkan DNS ke <code>1.1.1.1</code> di atas rule hotspot. Efeknya
+                                attendee yang belum login nggak dapat DNS, jadi halaman login nggak muncul.
+                            </li>
+                            <li>
+                                Ada queue <code>TEST</code> untuk subnet Crew, sehingga sejak 11.35 trafik Crew lolos
+                                dari limit total event.
+                            </li>
+                            <li>
+                                Ada login admin ke router lewat MAC-Winbox dari Wi-Fi attendee, karena MAC-Winbox masih
+                                terbuka di semua interface.
                             </li>
                         </ul>
                         <p class="text-white">
-                            Solusi sementaranya, user diminta buka <code>http://neverssl.com</code> atau klik "Action
-                            needed" di menu Wi-Fi. Sebagian lagi kami login-kan dari router.
+                            Nggak ada niat jahat di sini, semua orang sedang berusaha benerin sesuatu. Masalahnya cuma
+                            satu: kurang woro-woro. Siangnya kami sampai bikin aturan, "tektokan channel di grup ini aja
+                            ya, biar ke-notice".
                         </p>
 
-                        <h5 class="text-white mt-4">6. Wi-Fi churn</h5>
-                        <p class="text-white">
-                            Laptop dan HP putus-sambung terus. Ada 55–67 DHCP release tiap 8–14 menit, dan lebih dari
-                            100 logout karena <i>keepalive timeout</i>. Beberapa client bahkan gagal dapat IP sampai
-                            dapat alamat <code>169.254.x.x</code>. Ini masalah di sisi radio/AP, bukan router.
-                        </p>
-
-                        <h5 class="text-white mt-4">7. Perubahan config tanpa kabar</h5>
-                        <p class="text-white">
-                            Di tengah acara ada beberapa perubahan dari admin lain yang baru ketahuan belakangan:
-                        </p>
+                        <h5 class="text-white mt-4">7. VLAN dan hardware</h5>
                         <ul class="text-white">
                             <li>
-                                Rule NAT yang membelokkan semua DNS ke <code>1.1.1.1</code>, ditaruh di atas rule
-                                hotspot tanpa filter interface. Efeknya, attendee yang belum login nggak dapat DNS,
-                                jadi halaman login nggak pernah muncul. Rule ini akhirnya dibiarkan sampai acara
-                                selesai.
+                                VLAN Social Network dan Merchandise nggak dibawa sampai ke router. Waktu trunk di-sniff,
+                                VLAN 80 = <b>0 frame</b> dalam 8 detik, sementara VLAN 20 dapat 83 frame dalam 3 detik.
+                                VLAN ID Merchandise di router juga ternyata salah, 50 harusnya 100.
                             </li>
+                            <li>PSU1 router <b>mati seharian</b>, jadi router jalan tanpa cadangan power.</li>
                             <li>
-                                Queue bernama <code>TEST</code> untuk subnet Crew dengan limit 300 Mbps. Gara-gara
-                                ini, sejak 11:35 semua trafik Crew lolos dari limit total event. 68 GB lewat queue
-                                ini.
+                                Port berlabel <code>RESERVED-DISABLED</code> ternyata aktif dan membawa 228 GB.
                             </li>
-                            <li>
-                                Login admin ke router lewat MAC-Winbox <b>dari Wi-Fi attendee</b>. Ternyata MAC-Winbox
-                                masih terbuka di semua interface.
-                            </li>
-                        </ul>
-
-                        <h5 class="text-white mt-4">8. VLAN yang nggak sampai</h5>
-                        <p class="text-white">
-                            Jaringan Social Network nggak dapat IP. Dari sisi router semuanya aman, jadi kami sniff
-                            trunk ke switch selama 8 detik. Hasilnya VLAN 80 = <b>0 frame</b>. Sebagai pembanding,
-                            VLAN 20 dapat 83 frame cuma dalam 3 detik. Artinya VLAN-nya nggak dibawa switch atau AP
-                            ke router. Workshop juga sempat mengalami hal yang sama.
-                            <br>
-                            <br>
-                            Merchandise lebih lucu lagi, VLAN ID-nya di router ternyata 50, harusnya 100. Begitu
-                            dibenerin sekitar 11:50, langsung ada device yang dapat IP.
-                        </p>
-
-                        <h5 class="text-white mt-4">9. Hardware dan port</h5>
-                        <ul class="text-white">
-                            <li>
-                                PSU1 router <b>mati seharian</b>. Router jalan pakai satu power supply, tanpa
-                                cadangan.
-                            </li>
-                            <li>
-                                Port berlabel <code>RESERVED-DISABLED</code> ternyata aktif dan membawa 228 GB, lebih
-                                banyak dari trunk utama. Ada device yang nyolok, dan sampai sekarang belum ketahuan
-                                apa.
-                            </li>
-                            <li>Port Stage/AV putus-sambung 4 kali.</li>
-                            <li>
-                                Registration kena 4.573 drop di queue dalam sejam, padahal trafiknya jauh di bawah
-                                limit. Kemungkinan buffer PCQ 50 KiB per client terlalu kecil buat burst.
-                            </li>
+                            <li>Pool IP Crew sempat terisi 75%.</li>
                         </ul>
 
                         <!--
                         <div class="row">
-                            <img src="/img/blog/06/3.png" alt="TODO" class="d-flex mx-auto"
+                            <img src="/img/blog/06/5.png" alt="Speedtest di area workshop" class="d-flex mx-auto"
                                 style="  border: 2px solid #bd93f9;" />
                         </div>
                         <br />
                         -->
 
                         <h4 class="text-white mt-5">What Went Right</h4>
-                        <p class="text-white">
-                            Meskipun daftar di atas panjang, ada juga yang berjalan dengan baik kok:
-                        </p>
                         <ul class="text-white">
                             <li>
-                                <b>Router nggak pernah jadi bottleneck.</b> CPU paling tinggi 35%, internet paling
-                                tinggi sekitar 30% kapasitas, pool IP attendee baru terpakai 10,6%, cache DNS cuma 387
-                                KiB dari 16 MiB.
+                                <b>Internet dan router nggak pernah jadi bottleneck.</b> Nol kali putus, CPU paling
+                                tinggi 35%, pool attendee baru terpakai 10,6%.
                             </li>
                             <li>
-                                <b>Internet nggak putus sama sekali</b> seharian.
+                                <b>Timnya.</b> Ditinggal listrik, ditinggal internet, kerja sampai jam 2 pagi, lalu
+                                balik lagi pagi-pagi.
                             </li>
                             <li>
-                                <b>Monitoring beneran kepakai.</b> Queue <code>TEST</code> ketahuan karena counter
-                                queue Crew berhenti di menit yang sama dengan <code>TEST</code> mulai jalan. Bolongnya
-                                data jam 08:06 cocok dengan port laptop ops yang putus. Port
-                                <code>RESERVED-DISABLED</code> juga ketahuan dari grafik trafiknya.
+                                <b>Grup WhatsApp jadi pusat koordinasi.</b> Semua temuan dilempar ke grup lengkap dengan
+                                foto dan screenshot, dan itu juga yang bikin postmortem ini bisa ditulis.
                             </li>
                             <li>
-                                <b>Masalah di luar router bisa dibuktikan,</b> bukan cuma diduga. Contohnya sniff
-                                trunk VLAN tadi.
+                                <b>Debugging pakai eliminasi.</b> Dari ONT Telkom, hotspot tersembunyi, channel auto,
+                                sampai akhirnya ketemu video transmitter. Satu per satu dicoret.
                             </li>
                             <li>
-                                <b>Hotspot beres dalam sekitar 1 jam.</b> Jam 11:50 ada 101 user login dan 0 yang
+                                <b>Monitoring kepakai beneran.</b> Queue yang bocor, port yang harusnya mati, dan gap
+                                data semuanya ketahuan dari dashboard. Datanya juga sudah di-export sebelum retensi 30
+                                hari habis.
+                            </li>
+                            <li>
+                                <b>Hotspot beres dalam sekitar 1 jam.</b> Jam 11.50 ada 101 user login dan 0 yang
                                 nunggu.
-                            </li>
-                            <li>
-                                <b>Datanya disimpan.</b> Metric sehari penuh sudah di-export sebelum retensi 30 hari
-                                habis, jadi laporan masih bisa dihitung ulang kapan saja.
                             </li>
                         </ul>
 
                         <h4 class="text-white mt-5">Lessons Learned</h4>
                         <blockquote>
                             <cite>
-                                Akar dari banyak masalah hari itu justru ada di luar router: Wi-Fi yang putus-sambung
-                                dan VLAN yang nggak dibawa switch atau AP.
+                                Router yang sehat belum tentu Wi-Fi yang sehat. Masalah terbesar hari itu ada di udara,
+                                bukan di kabel.
                             </cite>
                         </blockquote>
                         <p class="text-white">
-                            Ini catatan buat kami sendiri, dan mungkin juga berguna buat kamu yang pegang jaringan
+                            Ini catatan buat kami sendiri, dan mungkin berguna juga buat kamu yang pegang jaringan
                             event:
                         </p>
                         <ul class="text-white">
                             <li>
-                                <b>Satu config, satu orang.</b> Atau minimal kabari dulu di grup sebelum mengubah
-                                sesuatu.
+                                <b>Inventaris semua pemancar sebelum hari H.</b> Bukan cuma hotspot peserta, tapi juga
+                                video transmitter, mic wireless, ONT, dan perangkat vendor lain. Koordinasi dengan tim
+                                dokumentasi dan produksi sejak awal.
                             </li>
                             <li>
-                                <b>Batasi akses admin.</b> MAC-Winbox cuma dari jaringan management, dan jangan biarkan
-                                akun full access bertebaran.
+                                <b>Survei RF di ruangan yang paling penting.</b> Ukur noise dan cek channel yang
+                                kosong, jangan cuma lihat bar sinyal.
                             </li>
                             <li>
-                                <b>Checklist hotspot sebelum hari H:</b> aktifkan login
-                                <code>cookie, http-chap, http-pap, mac-cookie</code>, naikkan limit DNS, pakai HTTP
-                                302 di portal, perpanjang keepalive timeout, dan bikin voucher tanpa karakter yang
-                                mirip (0/O, 1/I).
+                                <b>Bawa AP cadangan lebih banyak.</b> Lebih 2 itu nggak cukup kalau satu error.
                             </li>
                             <li>
-                                <b>Pahami fiturnya sebelum diubah pas live.</b> Burst time itu bukan durasi burst, dan
-                                perubahan profile baru berlaku setelah login ulang.
+                                <b>Kunci channel dari awal.</b> Matikan auto channel dan optimasi otomatis selama event,
+                                pakai 20 MHz, hindari DFS dan channel yang bikin device Apple rewel.
                             </li>
                             <li>
-                                <b>Tes VLAN end-to-end sebelum pintu dibuka.</b> Colok atau connect satu device ke
-                                setiap jaringan dan pastikan dapat IP. Router aman belum tentu switch dan AP-nya aman.
+                                <b>Untuk workshop, LAN itu bukan cadangan, tapi rencana utama.</b> Siapkan USB LAN
+                                adapter, karena banyak laptop sekarang nggak punya port LAN. Seperti kata Hanif di akhir
+                                acara, "Invest Belden".
                             </li>
                             <li>
-                                <b>Cek fisik.</b> Dua PSU nyala, kabel bagus, port yang disable beneran disable, dan
-                                labelnya sesuai.
+                                <b>Internet harus siap jauh sebelum H-1 malam.</b> Begitu juga listrik di FOH.
                             </li>
                             <li>
-                                <b>Ukuran pool sesuai pemakaian.</b> Crew hampir penuh di 75%, attendee cuma 10%.
+                                <b>Satu config, satu pemegang.</b> Kalau mau ubah sesuatu, umumkan dulu di grup. Akses
+                                admin dibatasi, MAC-Winbox cuma dari jaringan management.
                             </li>
                             <li>
-                                <b>Pasang monitoring dari H-1.</b> Data Ruijie baru masuk jam 10:17, waktu keramaian
-                                sudah mulai.
+                                <b>Checklist hotspot:</b> login <code>cookie, http-chap, http-pap, mac-cookie</code>,
+                                limit DNS dinaikkan, portal pakai HTTP 302, dan voucher tanpa karakter yang mirip.
                             </li>
                             <li>
-                                <b>Minta akses owner atau API ke vendor sebelum event,</b> supaya data client dan sinyal
-                                bisa kelihatan.
+                                <b>Tes end-to-end sebelum pintu dibuka.</b> Connect satu device ke setiap SSID dan VLAN,
+                                pastikan dapat IP dan internet.
+                            </li>
+                            <li>
+                                <b>Monitoring jangan di laptop pribadi.</b> Pakai mini PC atau homelab yang memang
+                                ditinggal di venue, dan dapatkan akses penuh ke controller vendor sebelum event.
                             </li>
                         </ul>
 
-                        <!-- TODO: tambahin hal yang mau kamu lakukan beda di DevFest berikutnya -->
-
                         <p class="text-white mt-5">
                             Baik, sekarang kita sudah di penghujung tulisan ini. Mungkin segitu dulu saja yang bisa
-                            kami bagikan tentang apa yang terjadi di balik Wi-Fi DevFest Jakarta 2026. Terima kasih
-                            buat seluruh panitia yang sudah begadang dari subuh bareng kami, dan buat teman-teman
-                            attendee yang sabar nungguin login. Jika ada saran atau pertanyaan, silahkan DM ke twitter saya yaa. Terima
-                            kasih sudah membaca!
+                            kami bagikan tentang apa yang terjadi di balik Wi-Fi DevFest Jakarta 2026. Kalau kata salah satu
+                            pesan di grup malam itu: "Keos lagi, tapi well." Terima kasih buat seluruh panitia, tim
+                            vendor, dan tim dokumentasi yang sudah kerja bareng kami, dan buat teman-teman peserta
+                            workshop yang sabar banget. Semoga tahun depan "nggak lemot" yaa. Jika ada saran atau
+                            pertanyaan, silahkan DM ke twitter saya yaa. Terima kasih sudah membaca!
                         </p>
                     </article>
 
