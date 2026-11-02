@@ -217,11 +217,6 @@
                             <li>
                                 <b>Perses</b> buat dashboard-nya, akhirnya jadi 45 panel di 8 section.
                             </li>
-                            <li>
-                                Collector Ruijie buatan sendiri pakai Playwright, karena akun yang kami dapat nggak bisa
-                                pakai API. Sayangnya data client dan RSSI tetap nggak bisa diambil, jadi panelnya kami
-                                tandai "butuh akses owner", bukan diisi angka asal-asalan.
-                            </li>
                         </ul>
                         <p class="text-white">
                             Pagi-pagi jam 8.31, dashboard yang tadinya cuma bisa dibuka di jaringan lokal tiba-tiba
@@ -546,6 +541,44 @@
                             <li>
                                 <b>Monitoring jangan di laptop pribadi.</b> Pakai mini PC atau homelab yang memang
                                 ditinggal di venue, dan dapatkan akses penuh ke controller vendor sebelum event.
+                            </li>
+                        </ul>
+
+                        <h5 class="text-white mt-4">Soal setup pakai cara agentic</h5>
+                        <p class="text-white">
+                            Sebagian besar setup dan troubleshooting kemarin kami kerjakan dengan cara <i>agentic</i>:
+                            AI agent di terminal laptop ops yang bisa SSH ke router, nulis config, bikin dashboard,
+                            sampai nyusun laporan harian dari data monitoring. Cepat banget, tapi ada beberapa catatan
+                            yang mau kami bawa ke event berikutnya:
+                        </p>
+                        <ul class="text-white">
+                            <li>
+                                <b>Agent bisa salah dengan percaya diri.</b> Penjelasan awal soal burst time itu salah
+                                dan baru dikoreksi belakangan. Cek ke dokumentasi resmi sebelum perubahan masuk ke
+                                production.
+                            </li>
+                            <li>
+                                <b>Aksi berisiko tetap lewat persetujuan manusia.</b> Disconnect massal dan login
+                                device dari router selalu ditanya dulu. Usulan mengubah rule DNS yang dibuat tim lain
+                                pun kami tolak.
+                            </li>
+                            <li>
+                                <b>Satu config, satu sesi.</b> Profile hotspot yang ketimpa dalam 2 detik itu datang
+                                dari dua sesi berbeda di laptop yang sama. Kalau jalanin beberapa agent atau sesi
+                                sekaligus, pastikan nggak pegang resource yang sama.
+                            </li>
+                            <li>
+                                <b>Mulai dari read-only.</b> Investigasi dulu, baru ubah. Waktu ada percobaan ubah
+                                template portal, untungnya ditolak validasi RouterOS sebelum sempat diterapkan.
+                            </li>
+                            <li>
+                                <b>Jangan tempel secret ke sesi agent.</b> Ada token dan password yang sempat ke-share
+                                selama sesi, jadi semuanya harus dirotasi setelah acara.
+                            </li>
+                            <li>
+                                <b>Suruh agent mendokumentasikan saat itu juga.</b> Catatan sesi, laporan harian, dan
+                                snapshot data ditulis waktu kejadian. Itu yang bikin postmortem ini bisa ditulis
+                                lengkap.
                             </li>
                         </ul>
 
