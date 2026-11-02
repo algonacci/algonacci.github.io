@@ -252,8 +252,9 @@
                                     <tr><td>10:17</td><td>Puncak trafik internet saat workshop mulai, sekitar 745 Mbps gabungan</td></tr>
                                     <tr><td>10:31</td><td>Ketemu Wi-Fi dari ONT Telkom dan hotspot-hotspot tersembunyi yang masih nyala</td></tr>
                                     <tr><td>10:35</td><td>Laporan halaman login nggak muncul di Microsoft Edge</td></tr>
-                                    <tr><td>10:40</td><td>Workshop mulai. 347 device. Sayap kanan workshop nggak dapat sinyal</td></tr>
+                                    <tr><td>10:40</td><td>Workshop sudah berjalan. 347 device. Sayap kanan workshop nggak dapat sinyal</td></tr>
                                     <tr><td>10:40–11:50</td><td>Hotspot dibenahi di sisi router, sekitar 140 device di-login-kan manual</td></tr>
+                                    <tr><td>11:00–11:30</td><td>Peserta workshop mulai masuk lewat SSID DevFest-Workshop_5G, yang ternyata ada di VLAN Crew. Pool Crew naik dari 57 ke 102 device</td></tr>
                                     <tr><td>11:26</td><td>Optimasi otomatis lewat aplikasi Ruijie dijalankan</td></tr>
                                     <tr><td>11:45</td><td>Device Apple dan laptop bermasalah di channel 5 GHz bawah</td></tr>
                                     <tr><td>11:53</td><td>Channel AP berubah-ubah sendiri. Channel dikunci manual, lebar 20 MHz, DFS dimatikan</td></tr>
@@ -296,15 +297,18 @@
                             <img src="/img/blog/06/mon-b.png" alt="Dashboard Perses: alokasi DHCP per pool" class="d-flex mx-auto img-fluid"
                                 style="  border: 2px solid #bd93f9;" />
                         </div>
-                        <p class="text-muted text-center small mt-2">Alokasi IP per jaringan. Attendee memuncak di 434 device jam 11.52, pool Crew sempat terisi 75% (190 dari 253) jam 13.03.</p>
+                        <p class="text-muted text-center small mt-2">Alokasi IP per jaringan. Attendee memuncak di 434 device jam 11.52, pool Crew sempat terisi 75% (190 dari 253) jam 13.03, sebagian besar peserta workshop lewat SSID Workshop 5G.</p>
                         <br />
                         <p class="text-white">
                             Jadi dari kacamata router, harinya kelihatan sehat-sehat saja. Padahal di ruang workshop,
                             speedtest-nya cuma dapat 5,4 Mbps. Di sinilah pelajaran terbesarnya.
                             <br>
                             <br>
-                            Oh iya, coba tebak jaringan siapa yang paling boros? Crew, <b>94,8 GB</b>. Hampir 3x lipat
-                            dari seluruh attendee digabung *HAHAHA, kami juga termasuk di dalamnya sih 😄
+                            Oh iya, coba tebak jaringan siapa yang paling boros? Crew, <b>94,8 GB</b>, hampir 3x lipat
+                            dari seluruh attendee digabung. Sempat kami kira crew-nya yang rakus, ternyata bukan. SSID
+                            <code>DevFest-Workshop_5G</code> masuk ke VLAN Crew, jadi peserta workshop ikut terhitung di
+                            sana. VLAN Workshop sendiri sepanjang hari cuma kebagian 0,28 GB. Pelajaran kecil: nama SSID
+                            dan nama VLAN harus nyambung, biar angkanya nggak menipu😅
                         </p>
 
                         <div class="row">
@@ -438,8 +442,9 @@
                                 attendee yang belum login nggak dapat DNS, jadi halaman login nggak muncul.
                             </li>
                             <li>
-                                Ada queue <code>TEST</code> untuk subnet Crew, sehingga sejak 11.35 trafik Crew lolos
-                                dari limit total event.
+                                Ada queue <code>TEST</code> 300 Mbps untuk subnet Crew, subnet yang sama dengan peserta
+                                workshop di SSID Workshop 5G. Efeknya, sejak 11.35 trafik di subnet itu keluar dari limit
+                                total event.
                             </li>
                             <li>
                                 Ada login admin ke router lewat MAC-Winbox dari Wi-Fi attendee, karena MAC-Winbox masih
@@ -463,7 +468,7 @@
                             <li>
                                 Port berlabel <code>RESERVED-DISABLED</code> ternyata aktif dan membawa 228 GB.
                             </li>
-                            <li>Pool IP Crew sempat terisi 75%.</li>
+                            <li>Pool IP Crew sempat terisi 75%, karena peserta workshop ikut masuk ke VLAN Crew.</li>
                         </ul>
 
                         <div class="row">
