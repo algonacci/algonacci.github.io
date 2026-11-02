@@ -83,15 +83,15 @@
 
                     <article>
                         <p class="text-white">
-                            Minggu, 1 November 2026 kemarin saya kebagian jadi bagian dari tim networking di GDG
-                            DevFest Jakarta 2026. Selesai acara, ada satu pertanyaan yang muncul dari beberapa orang
-                            dan juga dari saya sendiri:
+                            Minggu, 1 November 2026 kemarin kami berempat, Razan, Hanif, Samu, dan saya sendiri
+                            (Eric), kebagian pegang jaringan di GDG DevFest Jakarta 2026. Selesai acara, ada satu
+                            pertanyaan yang muncul dari beberapa orang dan juga dari kami sendiri:
                             <br>
                             <br>
-                            "Wi-Fi kemarin sebenarnya kenapa sih, Ric?"
+                            "Wi-Fi kemarin sebenarnya kenapa sih?"
                             <br>
                             <br>
-                            Jadi tulisan ini adalah postmortem dari hari itu. Apa saja yang rusak, apa saja yang
+                            Jadi tulisan ini adalah postmortem kami dari hari itu. Apa saja yang rusak, apa saja yang
                             ternyata jalan dengan baik, dan apa yang bakal kami lakukan beda di event berikutnya.
                             Postmortem ini <i>blameless</i> ya, tujuannya belajar, bukan nyari siapa yang salah.
                             <br>
@@ -137,18 +137,17 @@
 
                         <h4 class="text-white mt-5">Monitoring</h4>
                         <p class="text-white">
-                            Bagian ini yang paling saya pegang. Prinsip saya sederhana, kalau mau debugging di tengah
-                            event, kita harus punya data. Kalau nggak ada data, yang ada cuma nebak-nebak.
+                            Prinsip kami sederhana, kalau mau debugging di tengah event, kita harus punya data. Kalau nggak ada data, yang ada cuma nebak-nebak.
                             <br>
                             <br>
-                            Stack-nya saya jalankan pakai rootless Podman di laptop ops:
+                            Stack-nya kami jalankan pakai rootless Podman di laptop ops:
                         </p>
                         <ul class="text-white">
                             <li>
                                 <b>mktxp</b> sebagai exporter yang narik metric dari MikroTik.
                             </li>
                             <li>
-                                <b>VictoriaMetrics</b> buat nyimpan metric-nya. Awalnya Prometheus, lalu saya ganti.
+                                <b>VictoriaMetrics</b> buat nyimpan metric-nya. Awalnya Prometheus, lalu kami ganti.
                             </li>
                             <li>
                                 <b>Perses</b> buat dashboard-nya. Akhirnya jadi 45 panel di 8 section, dengan section
@@ -161,23 +160,23 @@
                         </ul>
                         <p class="text-white">
                             Yang agak tricky itu Ruijie. Akun yang kami dapat cuma akun delegasi, dan API-nya nggak
-                            bisa dipakai. Akhirnya saya bikin collector sendiri pakai Playwright yang login ke Ruijie
+                            bisa dipakai. Akhirnya kami bikin collector sendiri pakai Playwright yang login ke Ruijie
                             Cloud, menjaga sesinya tetap hidup, lalu mengeluarkan data inventory AP dan switch dalam
                             format Prometheus. Sayangnya akun delegasi ini ditolak waktu mau ambil data client dan
-                            RSSI, jadi panel itu saya tandai "butuh akses owner", bukan diisi angka asal-asalan.
+                            RSSI, jadi panel itu kami tandai "butuh akses owner", bukan diisi angka asal-asalan.
                             <br>
                             <br>
                             Ada dua kejadian kecil yang lucu juga waktu setup:
                         </p>
                         <ul class="text-white">
                             <li>
-                                Speedtest dari laptop ops mentok di ~94 Mbps. Saya sempat curiga ke router, ternyata
+                                Speedtest dari laptop ops mentok di ~94 Mbps. Kami sempat curiga ke router, ternyata
                                 kartu jaringan laptopnya turun dari 1 Gbps ke 100 Mbps gara-gara kabel. Router-nya
                                 nggak salah apa-apa😅
                             </li>
                             <li>
                                 Timezone laptop ternyata masih <code>America/New_York</code>, jadi jam di dashboard
-                                nggak nyambung sama jam di router. Langsung saya ganti ke <code>Asia/Jakarta</code>.
+                                nggak nyambung sama jam di router. Langsung kami ganti ke <code>Asia/Jakarta</code>.
                             </li>
                         </ul>
 
@@ -260,7 +259,7 @@
                             <li>Merchandise: 0,07 GB</li>
                         </ul>
                         <p class="text-white">
-                            Yap, crew-nya sendiri. Hampir 3x lipat dari seluruh attendee digabung *HAHAHA, saya juga
+                            Yap, crew-nya sendiri. Hampir 3x lipat dari seluruh attendee digabung *HAHAHA, kami juga
                             termasuk di dalamnya sih 😄
                         </p>
 
@@ -303,7 +302,7 @@
 
                         <h5 class="text-white mt-4">3. Dua admin, satu config</h5>
                         <p class="text-white">
-                            Ini yang bikin saya ketawa miris. Waktu burst time diubah ke 5 menit, ada sesi admin lain
+                            Ini yang bikin kami ketawa miris. Waktu burst time diubah ke 5 menit, ada sesi admin lain
                             yang mengubah profile yang sama ke <code>60/60</code>, cuma <b>2 detik</b> sebelum
                             disconnect massal. Akhirnya harus dibalikin lagi. Nggak ada yang salah sebenarnya, cuma
                             nggak ada koordinasi siapa pegang apa.
@@ -365,7 +364,7 @@
 
                         <h5 class="text-white mt-4">8. VLAN yang nggak sampai</h5>
                         <p class="text-white">
-                            Jaringan Social Network nggak dapat IP. Dari sisi router semuanya aman, jadi saya sniff
+                            Jaringan Social Network nggak dapat IP. Dari sisi router semuanya aman, jadi kami sniff
                             trunk ke switch selama 8 detik. Hasilnya VLAN 80 = <b>0 frame</b>. Sebagai pembanding,
                             VLAN 20 dapat 83 frame cuma dalam 3 detik. Artinya VLAN-nya nggak dibawa switch atau AP
                             ke router. Workshop juga sempat mengalami hal yang sama.
@@ -489,9 +488,9 @@
 
                         <p class="text-white mt-5">
                             Baik, sekarang kita sudah di penghujung tulisan ini. Mungkin segitu dulu saja yang bisa
-                            saya bagikan tentang apa yang terjadi di balik Wi-Fi DevFest Jakarta 2026. Terima kasih
-                            buat seluruh tim yang sudah begadang dari subuh, dan buat teman-teman attendee yang sabar
-                            nungguin login. Jika ada saran atau pertanyaan, silahkan DM ke twitter saya yaa. Terima
+                            kami bagikan tentang apa yang terjadi di balik Wi-Fi DevFest Jakarta 2026. Terima kasih
+                            buat seluruh panitia yang sudah begadang dari subuh bareng kami, dan buat teman-teman
+                            attendee yang sabar nungguin login. Jika ada saran atau pertanyaan, silahkan DM ke twitter saya yaa. Terima
                             kasih sudah membaca!
                         </p>
                     </article>
