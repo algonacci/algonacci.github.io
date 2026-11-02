@@ -345,6 +345,43 @@
                             </li>
                         </ul>
 
+                        <p class="text-white">
+                            Data dari Ruijie Cloud bilang hal yang sama. Grafik <i>Wi-Fi Experience</i> mulai didominasi
+                            merah sejak sekitar jam 10.30 dan bertahan sampai sore, dengan kategori <i>Capacity and
+                            Interference</i> yang paling bermasalah. <i>Service level</i>-nya cuma tercapai 20%. Penyebab
+                            pengalaman buruk menurut Ruijie:
+                        </p>
+                        <ul class="text-white">
+                            <li>Paket multicast berlebihan: <b>33,32%</b></li>
+                            <li>Interferensi 802.11 (sesama Wi-Fi): <b>29,40%</b></li>
+                            <li>Interferensi non-802.11 (perangkat non-Wi-Fi): <b>28,08%</b></li>
+                            <li>Terlalu banyak user di satu AP: 4,60%</li>
+                            <li>Trafik jaringan berat: 4,59%</li>
+                        </ul>
+                        <p class="text-white">
+                            Jadi lebih dari 90% masalahnya ada di udara dan multicast, bukan karena bandwidth habis.
+                            Kalau masalahnya beban, dua poin terakhir harusnya yang paling besar.
+                        </p>
+                        <div class="row">
+                            <img src="/img/blog/06/ruijie-experience.png" alt="Ruijie Cloud Wi-Fi Experience: dominan merah sejak 10.30" class="d-flex mx-auto img-fluid"
+                                style="  border: 2px solid #bd93f9;" />
+                        </div>
+                        <p class="text-muted text-center small mt-2">Wi-Fi Experience di Ruijie Cloud. Merah = pengalaman buruk. Nama device di Traffic Ranking disembunyikan.</p>
+                        <br />
+                        <p class="text-white">
+                            Pembagian channel-nya juga kelihatan numpuk. Di 5 GHz, <b>4 AP ada di channel 149</b>
+                            yang sama, dua di 157, dan cuma satu di 36. Di 2,4 GHz, channel 1 dan 11 masing-masing
+                            dipakai dua AP dengan status <i>overload</i>, ditambah satu AP di channel 7 yang tumpang
+                            tindih dengan channel 6 dan 11. AP yang numpuk di channel yang sama harus gantian bicara,
+                            jadi makin banyak AP malah bisa makin pelan.
+                        </p>
+                        <div class="row">
+                            <img src="/img/blog/06/ruijie-channel.png" alt="Ruijie Cloud channel usage 2,4 GHz dan 5 GHz" class="d-flex mx-auto img-fluid"
+                                style="  border: 2px solid #bd93f9;" />
+                        </div>
+                        <p class="text-muted text-center small mt-2">Pemakaian channel per AP. Hijau = strong, oranye = busy, merah = overload.</p>
+                        <br />
+
                         <h5 class="text-white mt-4">2. Plot twist: video transmitter</h5>
                         <p class="text-white">
                             Jam 12.14, Hanif foto sebuah alat di dekat meja FOH workshop, dengan 4 antena berdiri di
@@ -533,6 +570,14 @@
                             <li>
                                 <b>Kunci channel dari awal.</b> Matikan auto channel dan optimasi otomatis selama event,
                                 pakai 20 MHz, hindari DFS dan channel yang bikin device Apple rewel.
+                            </li>
+                            <li>
+                                <b>Rencanakan channel per AP.</b> Di 2,4 GHz cuma pakai 1, 6, dan 11. Di 5 GHz sebar
+                                AP ke channel berbeda, jangan sampai 4 AP numpuk di satu channel.
+                            </li>
+                            <li>
+                                <b>Batasi multicast dan broadcast di SSID peserta.</b> Ini penyebab nomor satu versi
+                                Ruijie, di atas interferensi.
                             </li>
                             <li>
                                 <b>Untuk workshop, LAN itu bukan cadangan, tapi rencana utama.</b> Siapkan USB LAN
